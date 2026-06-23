@@ -6,7 +6,7 @@
 /*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 01:58:23 by wini             ###   ########.fr       */
+/*   Updated: 2026/06/22 19:03:32 by wini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,42 @@ typedef struct s_game
 	char		**map;
 }	t_game;
 
-void	init_player(t_player *player);
+/* game.c */
+void	init_game(t_game *game, char *map_file);
+
+/* events.c */
 int		key_press(int keycode, t_player *player);
 int		key_release(int keycode, t_player *player);
-void	move_player(t_player *player);
+
+/* player.c */
+void	init_player(t_player *player);
+void	rotate_player(t_player *player);
+void	move_player(t_player *player, float cos_angle, float sin_angle);
+void	player_controller(t_player *player);
+
+/* map.c */
 char	**get_map(char *map_file);
+void	draw_map(t_game *game);
+
+/* draw.c */
+void	put_pixel(int x, int y, int color, t_game *game);
+void	draw_square(t_point pos, int size, int color, t_game *game);
+void	draw_wall(t_game *game, int column, float height);
+void	clear_image(t_game *game);
+
+/* raycast.c */
+int		touch(float px, float py, t_game *game);
+t_point	cast_ray(t_game *game, t_point start, float ray_angle);
+float	wall_height(float dist);
+float	ray_distance(t_player *player, t_game *game, float ray_angle);
+
+/* math_utils.c */
+float	distance(float x, float y);
+float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
+
+/* render.c */
+void	render_minimap_view(t_game *game, t_player *player);
+void	cast_rays(t_player *player, t_game *game);
+int		draw_loop(t_game *game);
 
 #endif

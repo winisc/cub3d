@@ -1,0 +1,19 @@
+# Build artifacts
+*.o
+*.a
+*.d
+
+# Binaries
+cub3D
+cub3D_bonus
+
+# Editor / IDE
+.vscode
+.idea
+*.swp
+
+# OS
+.DS_Store
+
+# Personal notes
+study.md

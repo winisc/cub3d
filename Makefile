@@ -6,7 +6,7 @@
 #    By: wini <wini@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/06/21 23:47:42 by wini             ###   ########.fr        #
+#    Updated: 2026/06/22 12:09:03 by wini             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ LIBFT_DIR = libs/libft
 INCLUDES = -Iincludes -I$(MLX_DIR) -I$(LIBFT_DIR)
 INCLUDES_BONUS = -Iincludes_bonus -I$(MLX_DIR) -I$(LIBFT_DIR)
 
-SRC = $(SRC_DIR)/cub3D.c $(SRC_DIR)/player.c $(SRC_DIR)/map.c
+SRC = $(SRC_DIR)/cub3D.c $(SRC_DIR)/player.c $(SRC_DIR)/map.c \
+		$(SRC_DIR)/game.c $(SRC_DIR)/events.c $(SRC_DIR)/draw.c \
+		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c $(SRC_DIR)/math_utils.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c
 

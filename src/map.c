@@ -6,7 +6,7 @@
 /*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 00:19:06 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 02:06:02 by wini             ###   ########.fr       */
+/*   Updated: 2026/06/22 19:03:57 by wini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,30 @@ char	**get_map(char *map_file)
 	map[10] = "1111111111111";
 	map[11] = NULL;
 	return (map);
+}
+
+void	draw_map(t_game *game)
+{
+	char	**map;
+	t_point	pos;
+	int		x;
+	int		y;
+
+	map = game->map;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+			{
+				pos.x = x * BLOCK;
+				pos.y = y * BLOCK;
+				draw_square(pos, BLOCK, 0x0000FF, game);
+			}
+			x++;
+		}
+		y++;
+	}
 }
