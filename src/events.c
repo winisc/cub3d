@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:03:21 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 11:05:11 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/22 16:44:57 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	key_press(int keycode, t_player *player)
+int	key_press(int keycode, void *param)
 {
+	t_player	*player;
+
+	player = (t_player *)param;
 	if (keycode == W)
 		player->key_up = 1;
 	if (keycode == S)
@@ -31,8 +34,11 @@ int	key_press(int keycode, t_player *player)
 	return (0);
 }
 
-int	key_release(int keycode, t_player *player)
+int	key_release(int keycode, void *param)
 {
+	t_player	*player;
+
+	player = (t_player *)param;
 	if (keycode == W)
 		player->key_up = 0;
 	if (keycode == S)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wini <wini@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/06/22 12:09:03 by wini             ###   ########.fr        #
+#    Updated: 2026/07/22 16:31:05 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,6 @@ libft:
 	@$(MAKE) -C $(LIBFT_DIR)
 
 mlx:
-	@chmod +x $(MLX_DIR)/configure
 	@$(MAKE) -C $(MLX_DIR)
 
 clean:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:03:32 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/22 16:48:44 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ typedef struct s_game
 void	init_game(t_game *game, char *map_file);
 
 /* events.c */
-int		key_press(int keycode, t_player *player);
-int		key_release(int keycode, t_player *player);
+int		key_press(int keycode, void *param);
+int		key_release(int keycode, void *param);
 
 /* player.c */
 void	init_player(t_player *player);
@@ -112,6 +112,6 @@ float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
 /* render.c */
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
-int		draw_loop(t_game *game);
+int		draw_loop(void *param);
 
 #endif
