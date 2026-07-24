@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:09:26 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/23 20:37:04 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	put_pixel(int x, int y, int color, t_game *game)
+void	put_pixel(int x, int y, int color, t_texture *game)
 {
 	int	index;
 
@@ -53,7 +53,7 @@ void	draw_wall(t_game *game, int column, float height)
 	}
 }
 
-void	clear_image(t_game *game)
+void	clear_image(t_texture *game)
 {
 	ft_bzero(game->data, game->size_line * HEIGHT);
 }

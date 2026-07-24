@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/22 16:48:44 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/23 22:19:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,42 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			size_line;
-	int			endian;
+//	void		*img;
+//	char		*data;
+//	int			bpp;
+//	int			endian;
+//	int			size_line;
 	t_player	player;
 	char		**map;
 }	t_game;
+
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	char	*data;
+	int		endian;
+	int		bpp;
+	int		line_len;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_map
+{
+	t_img		no;
+	t_img		ea;
+	t_img		so;
+	t_img		we;
+	char		*no_path;
+	char		*ea_path;
+	char		*so_path;
+	char		*we_path;
+	int			floor_color;
+	int			ceiling_color;
+	char		*map[500][500];
+	char		*path;
+}	t_map;
 
 /* game.c */
 void	init_game(t_game *game, char *map_file);
