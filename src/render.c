@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/22 16:47:31 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/24 18:19:34 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	draw_loop(void *param)
 	if (player->debug)
 		render_minimap_view(game, player);
 	cast_rays(player, game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 	return (0);
 }

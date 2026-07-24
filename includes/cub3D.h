@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/23 22:19:16 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/24 19:08:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define KEY_RELEASE 3
 # define KEY_PRESS_MASK 1
 # define KEY_RELEASE_MASK 2
+# define KEY_ESCAPE 27
 
 # define PI 3.14159265350
 
@@ -63,19 +64,6 @@ typedef struct s_player
 	int		debug;
 }	t_player;
 
-typedef struct s_game
-{
-	void		*mlx;
-	void		*win;
-//	void		*img;
-//	char		*data;
-//	int			bpp;
-//	int			endian;
-//	int			size_line;
-	t_player	player;
-	char		**map;
-}	t_game;
-
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -87,6 +75,20 @@ typedef struct s_img
 	int		width;
 	int		height;
 }	t_img;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	//void		*img_ptr;
+	//char		*data;
+	//int		bpp;
+	//int		endian;
+	//int		line_len;
+	char		**map;
+	t_player	player;
+	t_img		img;
+}	t_game;
 
 typedef struct s_map
 {
