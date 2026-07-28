@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/27 23:08:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 11:15:55 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	touch(float px, float py, t_game *game)
 {
 	int	x;
 	int	y;
-	// int	row_len;
+	int	row_len;
 
-	// if (!game || !game->map || px < 0 || py < 0)
-	// 	return (1);
-	// x = (int)(px / BLOCK);
-	// y = (int)(py / BLOCK);
-	// if (!game->map[y])
-	// 	return (1);
-	// row_len = ft_strlen(game->map[y]);
-	// if (x < 0 || x >= row_len)
-	// 	return (1);
+	if (!game || !game->map || px < 0 || py < 0)
+		return (1);
+	x = (int)(px / BLOCK);
+	y = (int)(py / BLOCK);
+	if (!game->map[y])
+		return (1);
+	row_len = ft_strlen(game->map[y]);
+	if (x < 0 || x >= row_len)
+		return (1);
 	if (game->map[y][x] == '1')
 		return (1);
 	return (0);
