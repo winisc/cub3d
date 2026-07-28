@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/28 12:10:51 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 18:12:11 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define KEY_RELEASE 3
 # define KEY_PRESS_MASK 1
 # define KEY_RELEASE_MASK 2
-# define KEY_ESCAPE 27
+# define KEY_ESCAPE '\033'
 
 # define PI 3.14159265350
 
@@ -107,18 +107,19 @@ typedef struct s_map
 }	t_map;
 
 /* game.c */
-void	init_game(t_game *game, char *map_file);
+void	start_game(t_game *game, char *map_file);
 
 /* events.c */
 int		key_press(int keycode, void *param);
 int		key_release(int keycode, void *param);
 void	setup_hooks(t_game *game);
 void	cleanup_game(t_game *game);
+int		close_game(t_game *game);
 
 /* player.c */
-void	rotate_player(t_player *player);
-void	move_player(t_player *player, float cos_angle, float sin_angle);
-void	player_controller(t_player *player);
+void	rotate_player(t_game *player);
+void	move_player(t_game *player, float cos_angle, float sin_angle);
+void	player_controller(t_game *player);
 
 /* init.c */
 void	init_img(t_img *img);

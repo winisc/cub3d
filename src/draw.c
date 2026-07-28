@@ -16,6 +16,8 @@ void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
 
+	if (!game || !game->img.data || game->img.line_len <= 0)
+		return ;
 	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
 		return ;
 	index = y * game->img.line_len + x * game->img.bpp / 8;
@@ -55,5 +57,7 @@ void	draw_wall(t_game *game, int column, float height)
 
 void	clear_image(t_game *game)
 {
+	if (!game || !game->img.data || game->img.line_len <= 0)
+		return ;
 	ft_bzero(game->img.data, game->img.line_len * HEIGHT);
 }

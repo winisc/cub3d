@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/24 18:19:34 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 16:11:08 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	draw_loop(void *param)
 
 	game = (t_game *)param;
 	player = &game->player;
-	player_controller(player);
+	player_controller(game);
 	clear_image(game);
 	if (player->debug)
 		render_minimap_view(game, player);

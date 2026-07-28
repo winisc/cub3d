@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/28 11:15:55 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 17:31:28 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_point	cast_ray(t_game *game, t_point start, float ray_angle)
 
 float	wall_height(float dist)
 {
+	if (dist <= 0.0001f)
+		return (HEIGHT);
 	return ((BLOCK / dist) * (WIDTH / 2));
 }
 

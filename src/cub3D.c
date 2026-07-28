@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/07/27 21:03:43 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 17:39:34 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 
 	if (!valid_args(argc, argv))
 		return (1);
-	init_game(&game, argv[1]);
+	start_game(&game, argv[1]);
 	setup_hooks(&game);
 	mlx_loop(game.mlx);
 	return (0);

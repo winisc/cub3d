@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:03:21 by wini              #+#    #+#             */
-/*   Updated: 2026/07/27 23:08:02 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 18:07:27 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,68 +16,82 @@ void	cleanup_game(t_game *game)
 {
 	if (!game)
 		return ;
-	mlx_destroy_image(game->mlx, game->img.img_ptr);
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	free(game);
+	if (game->img.img_ptr && game->mlx)
+		mlx_destroy_image(game->mlx, game->img.img_ptr);
+	if (game->win && game->mlx)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	if (game->map)
+	{
+		free(game->map);
+		game->map = NULL;
+	}
 }
 
-// void	close_game(t_game *game)
-// {
-// 	cleanup_game(game);
-// 	exit(0);
-// 	return (0);	
-// }
+int	close_game(t_game *game)
+{
+	cleanup_game(game);
+	exit(0);
+	return (0);
+}
 
 int	key_press(int keycode, void *param)
 {
-	t_player	*player;
-	
-	player = (t_player *)param;
+	t_game	*game;
+
+	game = (t_game *)param;
+	if (!game)
+		return (0);
 	if (keycode == W)
-		player->key_up = 1;
+		game->player.key_up = 1;
 	if (keycode == S)
-		player->key_down = 1;
+		game->player.key_down = 1;
 	if (keycode == A)
-		player->key_left = 1;
+		game->player.key_left = 1;
 	if (keycode == D)
-		player->key_right = 1;
+		game->player.key_right = 1;
 	if (keycode == LEFT)
-		player->left_rotate = 1;
+		game->player.left_rotate = 1;
 	if (keycode == RIGHT)
-		player->right_rotate = 1;
-	// if (keycode == KEY_ESCAPE)
-	// 	close_game(game);
+		game->player.right_rotate = 1;
+	if (keycode == KEY_ESCAPE)
+		close_game(game);
 	if (keycode == C)
-		player->debug = !player->debug;
+		game->player.debug = !game->player.debug;
 	return (0);
 }
 
 int	key_release(int keycode, void *param)
 {
-	t_player	*player;
+	t_game	*game;
 
-	player = (t_player *)param;
+	game = (t_game *)param;
+	if (!game)
+		return (0);
 	if (keycode == W)
-		player->key_up = 0;
+		game->player.key_up = 0;
 	if (keycode == S)
-		player->key_down = 0;
+		game->player.key_down = 0;
 	if (keycode == A)
-		player->key_left = 0;
+		game->player.key_left = 0;
 	if (keycode == D)
-		player->key_right = 0;
+		game->player.key_right = 0;
 	if (keycode == LEFT)
-		player->left_rotate = 0;
+		game->player.left_rotate = 0;
 	if (keycode == RIGHT)
-		player->right_rotate = 0;
+		game->player.right_rotate = 0;
 	return (0);
 }
 
 void	setup_hooks(t_game *game)
 {
-	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, &game->player);
-	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK, key_release, &game->player);
-	// mlx_hook(game->win, 17, 0, close_game, game);
+	if (!game || !game->win || !game->mlx)
+		return ;
+	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, game);
+	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK, key_release, game);
 	mlx_loop_hook(game->mlx, draw_loop, game);
 }
