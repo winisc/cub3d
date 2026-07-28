@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/24 19:08:16 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/27 21:01:59 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	init_game(t_game *game, char *map_file);
 /* events.c */
 int		key_press(int keycode, void *param);
 int		key_release(int keycode, void *param);
+void	setup_hooks(t_game *game);
+void	cleanup_game(t_game *game);
 
 /* player.c */
 void	init_player(t_player *player);

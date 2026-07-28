@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/07/22 16:31:05 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/07/27 20:13:17 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,9 @@ LIBFT_A = $(LIBFT_DIR)/libft.a
 
 all: mlx libft $(NAME)
 
+game: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L$(LIBFT_DIR) -lft $(MLX_LIBS) -o $(NAME)
+
 $(NAME): $(OBJS) $(LIBFT_A)
 	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L$(LIBFT_DIR) -lft $(MLX_LIBS) -o $(NAME)
 
@@ -63,10 +66,13 @@ clean:
 	@$(MAKE) clean -C $(LIBFT_DIR)
 	@$(MAKE) clean -C $(MLX_DIR)
 
+clean-game:
+	rm -f $(OBJS) $(OBJS_BONUS) $(NAME) $(NAME_BONUS)
+
 fclean: clean
 	rm -f $(NAME) $(NAME_BONUS)
 	@$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re mlx libft
+.PHONY: all bonus clean clean-game fclean re mlx libft game
