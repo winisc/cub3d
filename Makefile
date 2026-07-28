@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/07/27 20:13:17 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/07/28 12:11:35 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ INCLUDES_BONUS = -Iincludes_bonus -I$(MLX_DIR) -I$(LIBFT_DIR)
 
 SRC = $(SRC_DIR)/cub3D.c $(SRC_DIR)/player.c $(SRC_DIR)/map.c \
 		$(SRC_DIR)/game.c $(SRC_DIR)/events.c $(SRC_DIR)/draw.c \
-		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c $(SRC_DIR)/math_utils.c
+		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c \
+		$(SRC_DIR)/math_utils.c $(SRC_DIR)/inits.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c
 

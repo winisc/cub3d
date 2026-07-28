@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 23:17:18 by wini              #+#    #+#             */
-/*   Updated: 2026/06/23 10:42:34 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/28 11:33:11 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	init_player(t_player *player)
-{
-	player->pos.x = WIDTH / 2;
-	player->pos.y = HEIGHT / 2;
-	player->angle = PI / 2;
-	player->key_up = 0;
-	player->key_down = 0;
-	player->key_left = 0;
-	player->key_right = 0;
-	player->left_rotate = 0;
-	player->right_rotate = 0;
-	player->debug = DEBUG;
-}
 
 void	rotate_player(t_player *player)
 {

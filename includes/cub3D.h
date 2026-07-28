@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/27 21:01:59 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/28 12:10:51 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,13 @@ void	setup_hooks(t_game *game);
 void	cleanup_game(t_game *game);
 
 /* player.c */
-void	init_player(t_player *player);
 void	rotate_player(t_player *player);
 void	move_player(t_player *player, float cos_angle, float sin_angle);
 void	player_controller(t_player *player);
+
+/* init.c */
+void	init_img(t_img *img);
+void	init_player(t_player *player);
 
 /* map.c */
 char	**get_map(char *map_file);
