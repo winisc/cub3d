@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 11:11:10 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/28 17:39:34 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ int	main(int argc, char **argv)
 
 	if (!valid_args(argc, argv))
 		return (1);
-	init_game(&game, argv[1]);
-	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, key_press, &game.player);
-	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, key_release,
-		&game.player);
-	mlx_loop_hook(game.mlx, draw_loop, &game);
+	start_game(&game, argv[1]);
+	setup_hooks(&game);
 	mlx_loop(game.mlx);
 	return (0);
 }

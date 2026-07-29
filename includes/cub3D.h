@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:03:32 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/28 18:21:16 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define KEY_RELEASE 3
 # define KEY_PRESS_MASK 1
 # define KEY_RELEASE_MASK 2
+# define KEY_ESCAPE 65307
 
 # define PI 3.14159265350
 
@@ -63,31 +64,66 @@ typedef struct s_player
 	int		debug;
 }	t_player;
 
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	char	*data;
+	int		endian;
+	int		bpp;
+	int		line_len;
+	int		width;
+	int		height;
+}	t_img;
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			line_len;
-	int			endian;
-	t_player	player;
+	//void		*img_ptr;
+	//char		*data;
+	//int		bpp;
+	//int		endian;
+	//int		line_len;
 	char		**map;
+	t_player	player;
+	t_img		img;
 }	t_game;
 
+typedef struct s_map
+{
+	t_img		no;
+	t_img		ea;
+	t_img		so;
+	t_img		we;
+	char		*no_path;
+	char		*ea_path;
+	char		*so_path;
+	char		*we_path;
+	int			floor_color;
+	int			ceiling_color;
+	char		*map[500][500];
+	char		*path;
+}	t_map;
+
 /* game.c */
-void	init_game(t_game *game, char *map_file);
+void	start_game(t_game *game, char *map_file);
 
 /* events.c */
-int		key_press(int keycode, t_player *player);
-int		key_release(int keycode, t_player *player);
+int		key_press(int keycode, void *param);
+int		key_release(int keycode, void *param);
+void	setup_hooks(t_game *game);
+void	cleanup_game(t_game *game);
+int		close_game(t_game *game);
 
 /* player.c */
+void	rotate_player(t_game *player);
+void	move_player(t_game *player, float cos_angle, float sin_angle);
+void	player_controller(t_game *player);
+
+/* init.c */
+void	init_img(t_img *img);
 void	init_player(t_player *player);
-void	rotate_player(t_player *player);
-void	move_player(t_player *player, float cos_angle, float sin_angle);
-void	player_controller(t_player *player);
 
 /* map.c */
 char	**get_map(char *map_file);
@@ -112,6 +148,6 @@ float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
 /* render.c */
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
-int		draw_loop(t_game *game);
+int		draw_loop(void *param);
 
 #endif

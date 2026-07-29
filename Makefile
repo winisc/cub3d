@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wini <wini@student.42.fr>                  +#+  +:+       +#+         #
+#    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/06/22 12:09:03 by wini             ###   ########.fr        #
+#    Updated: 2026/07/28 12:11:35 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ INCLUDES_BONUS = -Iincludes_bonus -I$(MLX_DIR) -I$(LIBFT_DIR)
 
 SRC = $(SRC_DIR)/cub3D.c $(SRC_DIR)/player.c $(SRC_DIR)/map.c \
 		$(SRC_DIR)/game.c $(SRC_DIR)/events.c $(SRC_DIR)/draw.c \
-		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c $(SRC_DIR)/math_utils.c
+		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c \
+		$(SRC_DIR)/math_utils.c $(SRC_DIR)/inits.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c
 
@@ -37,6 +38,9 @@ MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 LIBFT_A = $(LIBFT_DIR)/libft.a
 
 all: mlx libft $(NAME)
+
+game: $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L$(LIBFT_DIR) -lft $(MLX_LIBS) -o $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_A)
 	$(CC) $(CFLAGS) $(OBJS) $(INCLUDES) -L$(LIBFT_DIR) -lft $(MLX_LIBS) -o $(NAME)
@@ -56,7 +60,6 @@ libft:
 	@$(MAKE) -C $(LIBFT_DIR)
 
 mlx:
-	@chmod +x $(MLX_DIR)/configure
 	@$(MAKE) -C $(MLX_DIR)
 
 clean:
@@ -64,10 +67,13 @@ clean:
 	@$(MAKE) clean -C $(LIBFT_DIR)
 	@$(MAKE) clean -C $(MLX_DIR)
 
+clean-game:
+	rm -f $(OBJS) $(OBJS_BONUS) $(NAME) $(NAME_BONUS)
+
 fclean: clean
 	rm -f $(NAME) $(NAME_BONUS)
 	@$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re mlx libft
+.PHONY: all bonus clean clean-game fclean re mlx libft game
