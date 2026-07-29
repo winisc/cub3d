@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/07/28 12:11:35 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/07/29 16:58:38 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,16 @@ LIBFT_DIR = libs/libft
 INCLUDES = -Iincludes -I$(MLX_DIR) -I$(LIBFT_DIR)
 INCLUDES_BONUS = -Iincludes_bonus -I$(MLX_DIR) -I$(LIBFT_DIR)
 
-SRC = $(SRC_DIR)/cub3D.c $(SRC_DIR)/player.c $(SRC_DIR)/map.c \
-		$(SRC_DIR)/game.c $(SRC_DIR)/events.c $(SRC_DIR)/draw.c \
-		$(SRC_DIR)/raycast.c $(SRC_DIR)/render.c \
-		$(SRC_DIR)/math_utils.c $(SRC_DIR)/inits.c
+SRC =	$(SRC_DIR)/cub3D.c \
+		$(SRC_DIR)/controller/player.c \
+		$(SRC_DIR)/controller/events.c \
+		$(SRC_DIR)/render/draw.c \
+		$(SRC_DIR)/render/map.c \
+		$(SRC_DIR)/render/render.c \
+		$(SRC_DIR)/render/textures.c \
+		$(SRC_DIR)/render/raycast.c \
+		$(SRC_DIR)/utils/math_utils.c \
+		$(SRC_DIR)/utils/inits.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c
 

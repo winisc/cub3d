@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/28 18:21:16 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/29 16:57:52 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,6 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
-typedef struct s_game
-{
-	void		*mlx;
-	void		*win;
-	//void		*img_ptr;
-	//char		*data;
-	//int		bpp;
-	//int		endian;
-	//int		line_len;
-	char		**map;
-	t_player	player;
-	t_img		img;
-}	t_game;
-
 typedef struct s_map
 {
 	t_img		no;
@@ -105,6 +91,15 @@ typedef struct s_map
 	char		*map[500][500];
 	char		*path;
 }	t_map;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	char		**map;
+	t_player	player;
+	t_img		img;
+}	t_game;
 
 /* game.c */
 void	start_game(t_game *game, char *map_file);
@@ -149,5 +144,8 @@ float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
+
+/* textures.c */
+
 
 #endif
