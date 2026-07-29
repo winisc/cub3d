@@ -70,7 +70,7 @@ typedef struct s_game
 	void		*img;
 	char		*data;
 	int			bpp;
-	int			size_line;
+	int			line_len;
 	int			endian;
 	t_player	player;
 	char		**map;
