@@ -6,31 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:03:21 by wini              #+#    #+#             */
-/*   Updated: 2026/07/28 18:15:43 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/29 18:16:07 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	cleanup_game(t_game *game)
-{
-	if (!game)
-		return ;
-	if (game->img.img_ptr && game->mlx)
-		mlx_destroy_image(game->mlx, game->img.img_ptr);
-	if (game->win && game->mlx)
-		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-	if (game->map)
-	{
-		free(game->map);
-		game->map = NULL;
-	}
-}
 
 int	close_game(t_game *game)
 {
@@ -93,5 +73,6 @@ void	setup_hooks(t_game *game)
 		return ;
 	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, game);
 	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK, key_release, game);
+	mlx_hook(game->win, DESTROY_WINDOW, DESTROY_WINDOW_MASK, close_game, game);
 	mlx_loop_hook(game->mlx, draw_loop, game);
 }

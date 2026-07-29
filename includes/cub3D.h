@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/29 16:57:52 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/29 17:22:01 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define KEY_RELEASE 3
 # define KEY_PRESS_MASK 1
 # define KEY_RELEASE_MASK 2
+
+# define DESTROY_WINDOW 17
+# define DESTROY_WINDOW_MASK 0
 # define KEY_ESCAPE 65307
 
 # define PI 3.14159265350
