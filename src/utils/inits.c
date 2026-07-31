@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 11:32:32 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/07/28 12:10:46 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/30 19:17:45 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_player(t_player *player)
 	player->angle = PI / 2;
 	player->key_up = 0;
 	player->key_down = 0;
-	player->key_left = 0;
-	player->key_right = 0;
-	player->left_rotate = 0;
-	player->right_rotate = 0;
+	player->key_strafe_left = 0;
+	player->key_strafe_right = 0;
+	player->key_left_rotate = 0;
+	player->key_right_rotate = 0;
 	player->debug = DEBUG;
 }

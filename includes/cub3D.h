@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/29 17:22:01 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/30 23:02:01 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,27 @@
 
 # define PI 3.14159265350
 
-# define SPEED 0.8
-# define ANGLE_SPEED 0.01
+# define SPEED 2.0
+# define ANGLE_SPEED 0.1
+# define PLAYER_HITBOX 0.2
 
 typedef struct s_point
 {
-	float	x;
-	float	y;
+	float	x;					/* movement speed (horizontal) */
+	float	y;					/* movement speed (vertical) */
 }	t_point;
 
 typedef struct s_player
 {
 	t_point	pos;
-	float	angle;
-	int		key_up;
-	int		key_down;
-	int		key_left;
-	int		key_right;
-	int		left_rotate;
-	int		right_rotate;
-	int		debug;
+	float	angle;				/* dir_x or dir_y */
+	int		key_up;				/* W -> move up */
+	int		key_down;			/* S -> move down */
+	int		key_strafe_left;	/* A -> move left */
+	int		key_strafe_right;	/* D -> move right */
+	int		key_left_rotate;	/* left arrow key */
+	int		key_right_rotate;	/* right arrow key */
+	int		debug;				/* minimap view */
 }	t_player;
 
 typedef struct s_img
@@ -118,6 +119,9 @@ int		close_game(t_game *game);
 void	rotate_player(t_game *player);
 void	move_player(t_game *player, float cos_angle, float sin_angle);
 void	player_controller(t_game *player);
+int		is_colliding(double x, double y, t_game *game);
+
+
 
 /* init.c */
 void	init_img(t_img *img);
@@ -149,6 +153,5 @@ void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
 
 /* textures.c */
-
 
 #endif
