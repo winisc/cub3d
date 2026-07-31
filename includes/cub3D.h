@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/30 23:02:01 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 18:38:33 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx.h"
 # include "libft.h"
+# include <sys/time.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -45,8 +46,8 @@
 
 # define PI 3.14159265350
 
-# define SPEED 2.0
-# define ANGLE_SPEED 0.1
+# define SPEED 80
+# define ANGLE_SPEED 2
 # define PLAYER_HITBOX 0.2
 
 typedef struct s_point
@@ -101,6 +102,7 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	char		**map;
+	double		last_frame_time;
 	t_player	player;
 	t_img		img;
 }	t_game;
@@ -116,12 +118,9 @@ void	cleanup_game(t_game *game);
 int		close_game(t_game *game);
 
 /* player.c */
-void	rotate_player(t_game *player);
-void	move_player(t_game *player, float cos_angle, float sin_angle);
-void	player_controller(t_game *player);
-int		is_colliding(double x, double y, t_game *game);
-
-
+void	rotate_player(t_game *game, double delta_time);
+void	move_player(t_game *game, float cos_angle, float sin_angle, double delta_time);
+void	player_controller(t_game *game);
 
 /* init.c */
 void	init_img(t_img *img);
@@ -146,6 +145,8 @@ float	ray_distance(t_player *player, t_game *game, float ray_angle);
 /* math_utils.c */
 float	distance(float x, float y);
 float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
+double	get_time_seconds(void);
+double	compute_delta_time(t_game *game);
 
 /* render.c */
 void	render_minimap_view(t_game *game, t_player *player);

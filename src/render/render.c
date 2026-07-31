@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/28 16:11:08 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 18:34:06 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	draw_loop(void *param)
 {
 	t_player	*player;
 	t_game		*game;
-
+	
 	game = (t_game *)param;
 	player = &game->player;
 	player_controller(game);
