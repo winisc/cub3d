@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 18:38:33 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:14:56 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@
 
 # define PI 3.14159265350
 
-# define SPEED 80
-# define ANGLE_SPEED 2
-# define PLAYER_HITBOX 0.2
+# define SPEED 200
+# define ANGLE_SPEED 4
+# define PLAYER_HITBOX 5
 
 typedef struct s_point
 {

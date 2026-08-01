@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:09:05 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 18:26:08 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:12:20 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ float	fixed_dist(t_point pos1, t_point pos2, t_game *game)
 	angle = atan2(delta_y, delta_x) - game->player.angle;
 	return (distance(delta_x, delta_y) * cos(angle));
 }
+
 double	get_time_seconds(void)
 {
 	struct timeval tv;
