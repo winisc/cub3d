@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:12:25 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:26:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	render_minimap_view(t_game *game, t_player *player)
 {
-	draw_square(player->pos, 10, 0xFFF000, game);
+	draw_square(player->pos, PLAYER_SIZE, 0xFFF000, game);
 	draw_map(game);
 }
 

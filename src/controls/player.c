@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 23:17:18 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:16:58 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:26:35 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,17 @@ void	rotate_player(t_game *game, double delta_time)
 
 static int	collide_checker(double x, double y, t_game *game)
 {
-	if (touch((x + 4) - PLAYER_HITBOX, (y + 4) - PLAYER_HITBOX, game))
+	if (touch((x + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX,
+			(y + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX, game))
 		return (1);
-	if (touch((x + 4) - PLAYER_HITBOX, (y + 5) + PLAYER_HITBOX, game))
+	if (touch((x + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX,
+			(y + (PLAYER_SIZE / 2)) + PLAYER_HITBOX, game))
 		return (1);
-	if (touch((x + 5) + PLAYER_HITBOX, (y + 5) + PLAYER_HITBOX, game))
+	if (touch((x + (PLAYER_SIZE / 2)) + PLAYER_HITBOX,
+			(y + (PLAYER_SIZE / 2)) + PLAYER_HITBOX, game))
 		return (1);
-	if (touch((x + 5) + PLAYER_HITBOX, (y + 4) - PLAYER_HITBOX, game))
+	if (touch((x + (PLAYER_SIZE / 2)) + PLAYER_HITBOX,
+			(y + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX, game))
 		return (1);
 	return (0);
 }
