@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 23:17:18 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:26:35 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/07/31 21:33:50 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 void	rotate_player(t_game *game, double delta_time)
 {
-	t_player *player = &game->player;
+	t_player	*player;
+
+	player = &game->player;
 	if (player->key_left_rotate)
 		player->angle -= ANGLE_SPEED * delta_time;
 	if (player->key_right_rotate)
 		player->angle += ANGLE_SPEED * delta_time;
-	// if (player->player.angle > 2 * PI)
-	// 	player->player.angle = 0;
-	// if (player->player.angle < 0)
-	// 	player->player.angle = 2 * PI;
 }
 
 static int	collide_checker(double x, double y, t_game *game)
@@ -44,23 +42,27 @@ static int	collide_checker(double x, double y, t_game *game)
 
 static void	is_colliding(double new_x, double new_y, t_game *game)
 {
-	t_player *player = &game->player;
+	t_player	*player;
+
+	player = &game->player;
 	if (!collide_checker(new_x, player->pos.y, game))
 		player->pos.x = new_x;
 	if (!collide_checker(player->pos.x, new_y, game))
 		player->pos.y = new_y;
 }
 
-void	move_player(t_game *game, float cos_angle, float sin_angle, double delta_time)
+void	move_player(t_game *game, float cos_angle,
+			float sin_angle, double delta_time)
 {
-	t_player *player = &game->player;
-	double	move_speed_x;
-	double	move_speed_y;
-	double	strafe_x;
-	double	strafe_y;
-	double	dir_x;
-	double	dir_y;
+	t_player	*player;
+	double		move_speed_x;
+	double		move_speed_y;
+	double		strafe_x;
+	double		strafe_y;
+	double		dir_x;
+	double		dir_y;
 
+	player = &game->player;
 	move_speed_x = 0.0;
 	move_speed_y = 0.0;
 	dir_x = cos_angle;
