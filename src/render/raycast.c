@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:35:28 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:55:23 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	touch(float px, float py, t_game *game)
 	return (0);
 }
 
-t_point	cast_ray(t_game *game, t_point start, float ray_angle)
+t_spawn	cast_ray(t_game *game, t_spawn start, float ray_angle)
 {
-	t_point	ray;
+	t_spawn	ray;
 	float	cos_angle;
 	float	sin_angle;
 
@@ -60,8 +60,8 @@ float	wall_height(float dist)
 
 float	ray_distance(t_player *player, t_game *game, float ray_angle)
 {
-	t_point	center;
-	t_point	hit;
+	t_spawn	center;
+	t_spawn	hit;
 
 	center.x = player->pos.x + 5;
 	center.y = player->pos.y + 5;

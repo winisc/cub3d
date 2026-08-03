@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 00:19:06 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:35:26 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:55:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**get_map(char *map_file)
 void	draw_map(t_game *game)
 {
 	char	**map;
-	t_point	pos;
+	t_spawn	pos;
 	int		x;
 	int		y;
 

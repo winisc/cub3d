@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:38:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:36:32 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define PI 3.14159265350
 
 # define SPEED 200
-# define ANGLE_SPEED 4
+# define ANGLE_SPEED 2.5
 # define PLAYER_SIZE 10
 # define PLAYER_HITBOX 5
 
@@ -58,23 +58,34 @@ typedef enum s_bool
 	TRUE,
 }	t_bool;
 
-typedef struct s_point
+typedef struct s_spawn
 {
 	float	x;					/* movement speed (horizontal) */
 	float	y;					/* movement speed (vertical) */
-}	t_point;
+}	t_spawn;
+
+typedef struct s_move
+{
+	double		move_speed_x;
+	double		move_speed_y;
+	double		strafe_x;
+	double		strafe_y;
+	double		dir_x;
+	double		dir_y;
+}	t_move;
 
 typedef struct s_player
 {
-	t_point	pos;
-	float	angle;				/* dir_x or dir_y */
-	int		key_up;				/* W -> move up */
-	int		key_down;			/* S -> move down */
-	int		key_strafe_left;	/* A -> move left */
-	int		key_strafe_right;	/* D -> move right */
-	int		key_left_rotate;	/* left arrow key */
-	int		key_right_rotate;	/* right arrow key */
-	int		debug;				/* minimap view */
+	t_move	move;
+	t_spawn		pos;
+	float		angle;				/* dir_x or dir_y */
+	int			key_up;				/* W -> move up */
+	int			key_down;			/* S -> move down */
+	int			key_strafe_left;	/* A -> move left */
+	int			key_strafe_right;	/* D -> move right */
+	int			key_left_rotate;	/* left arrow key */
+	int			key_right_rotate;	/* right arrow key */
+	int			debug;				/* minimap view */
 }	t_player;
 
 typedef struct s_img
@@ -150,8 +161,9 @@ int		close_game(t_game *game);
 
 /* player.c */
 void	rotate_player(t_game *game, double delta_time);
-void	move_player(t_game *game, float cos_angle, float sin_angle, double delta_time);
+void	move_player(t_game *game, double delta_time);
 void	player_controller(t_game *game);
+int		collide_checker(double x, double y, t_game *game);
 
 /* init.c */
 void	init_img(t_img *img);
@@ -160,6 +172,7 @@ void	init_texture(t_tex *texture);
 void	init_texture_path(t_texpath *texpath);
 void	init_colors(t_colors *colors);
 void	init_player(t_player *player);
+void	init_player_movement(t_player *player);
 
 /* map.c */
 char	**get_map(char *map_file);
@@ -167,19 +180,19 @@ void	draw_map(t_game *game);
 
 /* draw.c */
 void	put_pixel(int x, int y, int color, t_game *game);
-void	draw_square(t_point pos, int size, int color, t_game *game);
+void	draw_square(t_spawn pos, int size, int color, t_game *game);
 void	draw_wall(t_game *game, int column, float height);
 void	clear_image(t_game *game);
 
 /* raycast.c */
 int		touch(float px, float py, t_game *game);
-t_point	cast_ray(t_game *game, t_point start, float ray_angle);
+t_spawn	cast_ray(t_game *game, t_spawn start, float ray_angle);
 float	wall_height(float dist);
 float	ray_distance(t_player *player, t_game *game, float ray_angle);
 
 /* math_utils.c */
 float	distance(float x, float y);
-float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
+float	fixed_dist(t_spawn pos1, t_spawn pos2, t_game *game);
 double	get_time_seconds(void);
 double	compute_delta_time(t_game *game);
 
