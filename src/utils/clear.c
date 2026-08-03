@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/29 17:41:28 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/07/29 18:16:07 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:35:29 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	cleanup_game(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	if (game->map)
+	if (game->map.map)
 	{
-		free(game->map);
-		game->map = NULL;
+		free(game->map.map);
+		game->map.map = NULL;
 	}
 }

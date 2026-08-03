@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 00:19:06 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:03:57 by wini             ###   ########.fr       */
+/*   Updated: 2026/08/03 17:35:26 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_map(t_game *game)
 	int		x;
 	int		y;
 
-	map = game->map;
+	map = game->map.map;
 	y = 0;
 	while (map[y])
 	{

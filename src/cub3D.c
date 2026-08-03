@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:32:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:35:28 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	start_game(t_game *game, char *map_file)
 	//	return (0);
 	init_player(&game->player);
 	init_img(&game->img);
-	game->map = get_map(map_file);
+	game->map.map = get_map(map_file);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, GAME_NAME);
 	game->img.img_ptr = mlx_new_image(game->mlx, WIDTH, HEIGHT);

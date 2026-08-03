@@ -6,13 +6,14 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:25:57 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 17:38:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdbool.h>
 # include "mlx.h"
 # include "libft.h"
 # include <sys/time.h>
@@ -51,6 +52,12 @@
 # define PLAYER_SIZE 10
 # define PLAYER_HITBOX 5
 
+typedef enum s_bool
+{
+	FALSE,
+	TRUE,
+}	t_bool;
+
 typedef struct s_point
 {
 	float	x;					/* movement speed (horizontal) */
@@ -82,30 +89,53 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
-typedef struct s_map
+typedef struct s_texpath
+{
+	char		*no;
+	char		*ea;
+	char		*so;
+	char		*we;
+}	t_texpath;
+
+typedef struct s_tex
 {
 	t_img		no;
 	t_img		ea;
 	t_img		so;
 	t_img		we;
-	char		*no_path;
-	char		*ea_path;
-	char		*so_path;
-	char		*we_path;
+}	t_tex;
+
+typedef struct s_colors
+{
+	int		height;
+	int		width;
+	int		floor_color;
+	int		ceiling_color;
+	t_bool	floor_color_set;
+	t_bool	ceiling_color_set;
+}	t_colors;
+
+typedef struct s_map
+{
 	int			floor_color;
 	int			ceiling_color;
-	char		*map[500][500];
+	char		**map;
 	char		*path;
 }	t_map;
 
 typedef struct s_game
 {
+	t_img		img;
+	t_tex		tex;
+	t_texpath	texpath;
+	t_colors	colors;
+
+	t_map		map;
+	
 	void		*mlx;
 	void		*win;
-	char		**map;
 	double		last_frame_time;
 	t_player	player;
-	t_img		img;
 }	t_game;
 
 /* game.c */
@@ -125,6 +155,10 @@ void	player_controller(t_game *game);
 
 /* init.c */
 void	init_img(t_img *img);
+void	init_player(t_player *player);
+void	init_texture(t_tex *texture);
+void	init_texture_path(t_texpath *texpath);
+void	init_colors(t_colors *colors);
 void	init_player(t_player *player);
 
 /* map.c */
@@ -155,5 +189,7 @@ void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
 
 /* textures.c */
+
+
 
 #endif
