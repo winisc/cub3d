@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:35:28 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:12:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static int	valid_args(int argc, char **argv)
 
 void	start_game(t_game *game, char *map_file)
 {
-	//if (!game || !map_file)
-	//	return (0);
 	init_player(&game->player);
 	init_img(&game->img);
 	game->map.map = get_map(map_file);

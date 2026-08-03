@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/21 23:17:18 by wini              #+#    #+#             */
-/*   Updated: 2026/07/31 21:33:50 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:35:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,6 @@ void	rotate_player(t_game *game, double delta_time)
 		player->angle += ANGLE_SPEED * delta_time;
 }
 
-static int	collide_checker(double x, double y, t_game *game)
-{
-	if (touch((x + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX,
-			(y + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX, game))
-		return (1);
-	if (touch((x + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX,
-			(y + (PLAYER_SIZE / 2)) + PLAYER_HITBOX, game))
-		return (1);
-	if (touch((x + (PLAYER_SIZE / 2)) + PLAYER_HITBOX,
-			(y + (PLAYER_SIZE / 2)) + PLAYER_HITBOX, game))
-		return (1);
-	if (touch((x + (PLAYER_SIZE / 2)) + PLAYER_HITBOX,
-			(y + (PLAYER_SIZE / 2) - 1) - PLAYER_HITBOX, game))
-		return (1);
-	return (0);
-}
-
 static void	is_colliding(double new_x, double new_y, t_game *game)
 {
 	t_player	*player;
@@ -51,71 +34,62 @@ static void	is_colliding(double new_x, double new_y, t_game *game)
 		player->pos.y = new_y;
 }
 
-void	move_player(t_game *game, float cos_angle,
-			float sin_angle, double delta_time)
+static void	normalize_speed(t_game *game, double delta_time)
 {
 	t_player	*player;
-	double		move_speed_x;
-	double		move_speed_y;
-	double		strafe_x;
-	double		strafe_y;
-	double		dir_x;
-	double		dir_y;
+	double		len;
+	double		new_x;
+	double		new_y;
 
 	player = &game->player;
-	move_speed_x = 0.0;
-	move_speed_y = 0.0;
-	dir_x = cos_angle;
-	dir_y = sin_angle;
-	strafe_x = -dir_y * 0.66;
-	strafe_y = dir_x * 0.66;
+	len = distance((float)player->move.move_speed_x,
+			(float)player->move.move_speed_y);
+	if (len > 0.0)
+	{
+		player->move.move_speed_x /= len;
+		player->move.move_speed_y /= len;
+	}
+	player->move.move_speed_x *= SPEED * delta_time;
+	player->move.move_speed_y *= SPEED * delta_time;
+	new_x = player->pos.x + player->move.move_speed_x;
+	new_y = player->pos.y + player->move.move_speed_y;
+	is_colliding(new_x, new_y, game);
+}
+
+void	move_player(t_game *game, double delta_time)
+{
+	t_player	*player;
+
+	player = &game->player;
+	init_player_movement(&game->player);
 	if (player->key_up == 1)
 	{
-		move_speed_x += dir_x;
-		move_speed_y += dir_y;
+		player->move.move_speed_x += player->move.dir_x;
+		player->move.move_speed_y += player->move.dir_y;
 	}
 	if (player->key_down == 1)
 	{
-		move_speed_x -= dir_x;
-		move_speed_y -= dir_y;
+		player->move.move_speed_x -= player->move.dir_x;
+		player->move.move_speed_y -= player->move.dir_y;
 	}
 	if (player->key_strafe_left == 1)
 	{
-		move_speed_x -= strafe_x;
-		move_speed_y -= strafe_y;
+		player->move.move_speed_x -= player->move.strafe_x;
+		player->move.move_speed_y -= player->move.strafe_y;
 	}
 	if (player->key_strafe_right == 1)
 	{
-		move_speed_x += strafe_x;
-		move_speed_y += strafe_y;
+		player->move.move_speed_x += player->move.strafe_x;
+		player->move.move_speed_y += player->move.strafe_y;
 	}
-
-	double	len;
-	len = distance((float)move_speed_x, (float)move_speed_y);
-	if (len > 0.0)
-	{
-		move_speed_x /= len;
-		move_speed_y /= len;
-	}
-	move_speed_x *= SPEED * delta_time;
-	move_speed_y *= SPEED * delta_time;
-
-	double	new_x;
-	double	new_y;
-	new_x = player->pos.x + move_speed_x;
-	new_y = player->pos.y + move_speed_y;
-	is_colliding(new_x, new_y, game);
-	rotate_player(game, delta_time);
+	normalize_speed(game, delta_time);
 }
 
 void	player_controller(t_game *game)
 {
-	float	cos_angle;
-	float	sin_angle;
 	double	delta_time;
 
 	delta_time = compute_delta_time(game);
-	cos_angle = cos(game->player.angle);
-	sin_angle = sin(game->player.angle);
-	move_player(game, cos_angle, sin_angle, delta_time);
+	move_player(game, delta_time);
+	rotate_player(game, delta_time);
 }

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 11:32:32 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/03 17:29:43 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/03 18:15:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,4 @@ void	init_colors(t_colors *colors)
 	colors->floor_color_set = FALSE;
 	colors->height = 0;
 	colors->width = 0;
-}
-
-void	init_player(t_player *player)
-{
-	player->pos.x = WIDTH / 2;
-	player->pos.y = HEIGHT / 2;
-	player->angle = PI / 2;
-	player->key_up = 0;
-	player->key_down = 0;
-	player->key_strafe_left = 0;
-	player->key_strafe_right = 0;
-	player->key_left_rotate = 0;
-	player->key_right_rotate = 0;
-	player->debug = DEBUG;
 }

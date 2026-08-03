@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/07/29 17:42:17 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/03 18:36:10 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/render/raycast.c \
 		$(SRC_DIR)/utils/math_utils.c \
 		$(SRC_DIR)/utils/clear.c \
+		$(SRC_DIR)/utils/player_inits.c \
+		$(SRC_DIR)/utils/player_utils.c \
 		$(SRC_DIR)/utils/inits.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c
