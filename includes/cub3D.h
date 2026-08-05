@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 18:36:32 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/04 17:42:38 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef enum s_bool
 	TRUE,
 }	t_bool;
 
-typedef struct s_spawn
+typedef struct s_pos
 {
 	float	x;					/* movement speed (horizontal) */
 	float	y;					/* movement speed (vertical) */
-}	t_spawn;
+}	t_pos;
 
 typedef struct s_move
 {
@@ -76,8 +76,9 @@ typedef struct s_move
 
 typedef struct s_player
 {
-	t_move	move;
-	t_spawn		pos;
+	t_move		move;
+	t_pos		pos;
+	t_bool		spawn_set;
 	float		angle;				/* dir_x or dir_y */
 	int			key_up;				/* W -> move up */
 	int			key_down;			/* S -> move down */
@@ -180,19 +181,19 @@ void	draw_map(t_game *game);
 
 /* draw.c */
 void	put_pixel(int x, int y, int color, t_game *game);
-void	draw_square(t_spawn pos, int size, int color, t_game *game);
+void	draw_square(t_pos pos, int size, int color, t_game *game);
 void	draw_wall(t_game *game, int column, float height);
 void	clear_image(t_game *game);
 
 /* raycast.c */
 int		touch(float px, float py, t_game *game);
-t_spawn	cast_ray(t_game *game, t_spawn start, float ray_angle);
+t_pos	cast_ray(t_game *game, t_pos start, float ray_angle);
 float	wall_height(float dist);
 float	ray_distance(t_player *player, t_game *game, float ray_angle);
 
 /* math_utils.c */
 float	distance(float x, float y);
-float	fixed_dist(t_spawn pos1, t_spawn pos2, t_game *game);
+float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
 double	get_time_seconds(void);
 double	compute_delta_time(t_game *game);
 

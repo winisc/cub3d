@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:55:11 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/04 15:45:47 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->img.data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(t_spawn pos, int size, int color, t_game *game)
+void	draw_square(t_pos pos, int size, int color, t_game *game)
 {
 	int	i;
 

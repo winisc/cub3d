@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 18:15:23 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/03 18:37:17 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/04 17:44:58 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_player(t_player *player)
 	player->key_strafe_right = 0;
 	player->key_left_rotate = 0;
 	player->key_right_rotate = 0;
+	player->spawn_set = 0;
 	player->debug = DEBUG;
 }
 

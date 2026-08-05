@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:09:05 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 17:55:27 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/04 15:45:48 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ float	distance(float x, float y)
 	return (sqrt(x * x + y * y));
 }
 
-float	fixed_dist(t_spawn pos1, t_spawn pos2, t_game *game)
+float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game)
 {
 	float	delta_x;
 	float	delta_y;
