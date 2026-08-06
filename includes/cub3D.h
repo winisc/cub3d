@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/04 17:42:38 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/05 15:48:23 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ typedef struct s_colors
 
 typedef struct s_map
 {
-	int			floor_color;
-	int			ceiling_color;
 	char		**map;
 	char		*path;
 }	t_map;
@@ -203,6 +201,12 @@ void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
 
 /* textures.c */
+
+/* parsing */
+int		parse_cub_filename(t_game *game, char *map_file);
+int		set_player_pos(t_player *player, char direction, int x, int y);
+void	set_player_dir(t_player *player, char direction);
+int		is_player(char direction);
 
 
 

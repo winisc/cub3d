@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 16:53:36 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/04 18:08:21 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/05 21:16:52 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,53 @@ void	set_player_dir(t_player *player, char direction)
 		player->angle = PI;
 }
 
-int	set_player_pos(t_player *player, char direction)
+void	set_player_pos(t_player *player, char direction, int x, int y)
 {
-	if(player->spawn_set == 1)
-	{
-		// error_msg("Multiple spawn points detected");
-		return (1);
-	}
-	if (!is_player(direction))
-	{
-		// error_msg("Player spawn not found");
-		return (1);
-	}
-	player->spawn_set = 1;
+	//TODO: find somewhere better
+	// if(player->spawn_set == 1)
+	// {
+	// 	ft_putstr_fd("Multiple spawn points detected", 2);
+	// 	return ;
+	// }
+	// if (!is_player(direction))
+	// {
+	// 	ft_putstr_fd("Player spawn not found", 2);
+	// 	return ;
+	// }
+	player->pos.x = x * BLOCK + BLOCK / 2;
+	player->pos.y = y * BLOCK + BLOCK / 2;
 	set_player_dir(player, direction);
+}
+
+int	find_spawn(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (game->map.map[y])
+	{
+		x = 0;
+		while (game->map.map[y][x])
+		{
+			if(is_player(game->map.map[y][x]) && game->player.spawn_set == 1)
+			{
+				ft_putstr_fd("Multiple spawn points detected", 2);
+				return (1);
+			}
+			if (is_player(game->map.map[y][x]))
+			{
+				set_player_pos(&game->player, game->map.map[y][x], x, y);
+				game->player.spawn_set = 1;
+			}
+			x++;
+		}
+		y++;
+	}
+	if (game->player.spawn_set == 0)
+	{
+		ft_putstr_fd("Player spawn not found", 2);
+		return (1);
+	}
 	return (0);
 }
