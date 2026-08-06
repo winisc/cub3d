@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/05 15:48:23 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/06 19:08:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_game
 
 /* game.c */
 void	start_game(t_game *game, char *map_file);
+int		error_msg(char *msg);
 
 /* events.c */
 int		key_press(int keycode, void *param);
@@ -202,11 +203,15 @@ int		draw_loop(void *param);
 
 /* textures.c */
 
+/* free */
+void	free_lines(char **lines, int count);
+
 /* parsing */
 int		parse_cub_filename(t_game *game, char *map_file);
 int		set_player_pos(t_player *player, char direction, int x, int y);
 void	set_player_dir(t_player *player, char direction);
 int		is_player(char direction);
+char	**read_file_lines(int fd);
 
 
 

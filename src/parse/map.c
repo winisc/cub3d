@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse.c                                        :+:      :+:    :+:   */
+/*   map_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 15:35:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/05 21:31:31 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/06 19:12:48 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "cub3D.h"
 
-int	is_valid_char(char tile)
+char	**read_file_lines(int fd)
 {
-	return (tile == '1' || tile == '0' || tile == ' ' || is_player(tile));
-}
-
-int	parse_map_lines()
-{
+	char	**lines;
+	char	**tmp;
+	char	*line;
+	int		count;
+	int		cap;
 	
-}
-
-int	check_map_chars(t_game *game)
-{
-	int	x;
-	int	y;
-	
-	y = 0;
-	while (game->map.map[y])
+	cap = 20;
+	count = 0;
+	lines = malloc(sizeof(char *) * cap);
+	if (!lines)
+		return (NULL);
+	while ((line = get_next_line(fd)) != NULL)
 	{
-		x = 0;
-		while (game->map.map[y][x])
+		if (count + 1 >= cap)
 		{
-			if (!is_valid_char(game->map.map[y][x]))
-				return (1);
-			x++;
+			cap *= 2;
+			tmp = realloc(lines, sizeof(char *) * cap);
+			if (!tmp)
+				return (free_lines(lines, count), NULL);
+			lines = tmp;
 		}
-		y++;
+		lines[count] = line;
+		count++;
 	}
-	return (0);
+	lines[count] = NULL;
+	return (lines);
 }
 
 int	pad_map(t_game *game)
@@ -66,14 +66,19 @@ int	pad_map(t_game *game)
 	return (0);
 }
 
-int	validate_map(t_game *game)
-{
-	if (check_map_chars(game))
-		return (1);
-	if (pad_map(game))
-		return (1);
-	return (0);
-}
+//int	parse_header(int fd, t_texpath *texpath, t_colors *colors)
+//{
+//	char	*line;
+
+//	line = get_next_line(fd);
+//	if (fd < 0)
+//		return (1);
+//}
+
+//int	parse_map_lines(fd)
+//{
+//	return (read_file_lines(fd));
+//}
 
 int	parse_map_file(t_game *game, char *map_file)
 {
@@ -81,9 +86,9 @@ int	parse_map_file(t_game *game, char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		return (1); //TODO
-	if (!parse_header(fd, &game->texpath, &game->colors)) //TODO:
 		return (1);
+	//if (parse_header(fd, &game->texpath, &game->colors)) //TODO:
+	//	return (1);
 	game->map.map = parse_map_lines(fd); //TODO:
 	close(fd);
 	if (!game->map.map)

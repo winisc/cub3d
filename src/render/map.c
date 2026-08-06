@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 00:19:06 by wini              #+#    #+#             */
-/*   Updated: 2026/08/04 15:45:47 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/06 18:54:09 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**get_map(char *map_file)
 	char	**map;
 
 	(void)map_file;
+	if (read_file_lines(map_file))
+		return (1);
 	map = malloc(sizeof(char *) * 12);
 	if (!map)
 		return (NULL);

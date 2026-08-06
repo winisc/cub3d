@@ -6,11 +6,18 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/03 18:12:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/06 17:28:55 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+
+int	error_msg(char *msg)
+{
+	ft_putstr_fd(msg, 2);
+	return (1);
+}
 
 static int	valid_args(int argc, char **argv)
 {
@@ -18,13 +25,13 @@ static int	valid_args(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Error\nUsage: ./cub3D <map.cub>\n", 2);
+		error_msg("Error\nUsage: ./cub3D <map.cub>\n");
 		return (0);
 	}
 	len = ft_strlen(argv[1]);
 	if (len < 5 || ft_strncmp(argv[1] + len - 4, ".cub", 4) != 0)
 	{
-		ft_putstr_fd("Error\nMap file must have a .cub extension\n", 2);
+		error_msg("Error\nMap file must have a .cub extension\n");
 		return (0);
 	}
 	return (1);
