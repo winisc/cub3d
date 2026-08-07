@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/06 19:08:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/07 14:51:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,71 +148,66 @@ typedef struct s_game
 	t_player	player;
 }	t_game;
 
-/* game.c */
-void	start_game(t_game *game, char *map_file);
+/* main / game */
+int		start_game(t_game *game, char *map_file);
 int		error_msg(char *msg);
 
-/* events.c */
+/* controls */
+int		close_game(t_game *game);
 int		key_press(int keycode, void *param);
 int		key_release(int keycode, void *param);
 void	setup_hooks(t_game *game);
-void	cleanup_game(t_game *game);
-int		close_game(t_game *game);
-
-/* player.c */
 void	rotate_player(t_game *game, double delta_time);
 void	move_player(t_game *game, double delta_time);
 void	player_controller(t_game *game);
-int		collide_checker(double x, double y, t_game *game);
 
-/* init.c */
+/* inits */
 void	init_img(t_img *img);
-void	init_player(t_player *player);
 void	init_texture(t_tex *texture);
 void	init_texture_path(t_texpath *texpath);
 void	init_colors(t_colors *colors);
 void	init_player(t_player *player);
 void	init_player_movement(t_player *player);
 
-/* map.c */
+/* parse */
+char	**read_file(int fd);
+char	**parse_header(int fd, t_texpath *texpath, t_colors *colors);
+char	**parse_map(int fd);
+int		parse_file(t_game *game, char *map_file);
+int		pad_map(t_game *game);
+int		set_player_pos(t_player *player, char direction, int x, int y);
+void	set_player_dir(t_player *player, char direction);
+int		find_spawn(t_game *game);
+
+/* render */
 char	**get_map(char *map_file);
 void	draw_map(t_game *game);
-
-/* draw.c */
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_square(t_pos pos, int size, int color, t_game *game);
 void	draw_wall(t_game *game, int column, float height);
 void	clear_image(t_game *game);
-
-/* raycast.c */
 int		touch(float px, float py, t_game *game);
 t_pos	cast_ray(t_game *game, t_pos start, float ray_angle);
 float	wall_height(float dist);
 float	ray_distance(t_player *player, t_game *game, float ray_angle);
-
-/* math_utils.c */
-float	distance(float x, float y);
-float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
-double	get_time_seconds(void);
-double	compute_delta_time(t_game *game);
-
-/* render.c */
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
 
-/* textures.c */
-
-/* free */
+/* utils */
+void	cleanup_game(t_game *game);
+float	distance(float x, float y);
+float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
+double	get_time_seconds(void);
+double	compute_delta_time(t_game *game);
+int		is_valid_char(char tile);
 void	free_lines(char **lines, int count);
-
-/* parsing */
-int		parse_cub_filename(t_game *game, char *map_file);
-int		set_player_pos(t_player *player, char direction, int x, int y);
-void	set_player_dir(t_player *player, char direction);
+int		check_file_chars(t_game *game);
+int		validate_map(t_game *game);
+int		is_header_line(const char *line);
+int		map_width(t_game *game);
+int		map_height(t_game *game);
 int		is_player(char direction);
-char	**read_file_lines(int fd);
-
-
+int		collide_checker(double x, double y, t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/08/06 19:17:28 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/07 14:16:51 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,11 @@ OBJS_BONUS = $(SRC_BONUS:.c=.o)
 
 MLX_LIBS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 LIBFT_A = $(LIBFT_DIR)/libft.a
+
+DEBUG ?= 0
+ifeq ($(DEBUG), 1)
+	CFLAGS += -g2 -O0 -fsanitize=leak
+endif
 
 all: mlx libft $(NAME)
 
