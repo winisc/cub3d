@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_file.c                                         :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 15:35:07 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/06 19:12:48 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/07 16:46:17 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "cub3D.h"
 
-char	**read_file_lines(int fd)
+char	**read_file(int fd)
 {
 	char	**lines;
 	char	**tmp;
@@ -48,7 +48,7 @@ int	pad_map(t_game *game)
 	int		width;
 	char	*padded;
 
-	width = map_width(game); //TODO:
+	width = map_width(game);
 	y = 0;
 	while (game->map.map[y])
 	{
@@ -62,25 +62,30 @@ int	pad_map(t_game *game)
 		y++;
 	}
 	game->colors.width = width;
-	game->colors.height = map_height(game); //TODO:
+	game->colors.height = map_height(game);
 	return (0);
 }
 
-//int	parse_header(int fd, t_texpath *texpath, t_colors *colors)
-//{
-//	char	*line;
+char	**parse_header(int fd, t_texpath *texpath, t_colors *colors)
+{
+	(void)texpath;
+	(void)colors;
+	return (read_file(fd));
+}
 
-//	line = get_next_line(fd);
-//	if (fd < 0)
-//		return (1);
-//}
+char	**parse_map(int fd)
+{
+	int		i;
+	char	**line;
+	
+	i = 0;
+	line = read_file(fd);
+	while (is_header_line(line))
+		i++;
+	return ();
+}
 
-//int	parse_map_lines(fd)
-//{
-//	return (read_file_lines(fd));
-//}
-
-int	parse_map_file(t_game *game, char *map_file)
+int	parse_file(t_game *game, char *map_file)
 {
 	int	fd;
 
@@ -89,7 +94,7 @@ int	parse_map_file(t_game *game, char *map_file)
 		return (1);
 	//if (parse_header(fd, &game->texpath, &game->colors)) //TODO:
 	//	return (1);
-	game->map.map = parse_map_lines(fd); //TODO:
+	game->map.map = parse_map(fd);
 	close(fd);
 	if (!game->map.map)
 		return (1);

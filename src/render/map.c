@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 00:19:06 by wini              #+#    #+#             */
-/*   Updated: 2026/08/06 18:54:09 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/07 14:11:05 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,15 @@
 // substituir por leitura/parse real depois
 char	**get_map(char *map_file)
 {
-	char	**map;
+	char	**lines;
+	int		fd;
 
-	(void)map_file;
-	if (read_file_lines(map_file))
-		return (1);
-	map = malloc(sizeof(char *) * 12);
-	if (!map)
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
 		return (NULL);
-	map[0] = "1111111111111";
-	map[1] = "1000000000001";
-	map[2] = "1000001100001";
-	map[3] = "1000000000001";
-	map[4] = "1000000000001";
-	map[5] = "1010000000001";
-	map[6] = "1010000000001";
-	map[7] = "1011000000001";
-	map[8] = "1001000000001";
-	map[9] = "1000000000001";
-	map[10] = "1111111111111";
-	map[11] = NULL;
-	return (map);
+	lines = read_file(fd);
+	close(fd);
+	return (lines);
 }
 
 void	draw_map(t_game *game)
