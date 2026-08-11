@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/07 14:51:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/10 20:47:06 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ typedef struct s_tex
 
 typedef struct s_colors
 {
-	int		height;
-	int		width;
 	int		floor_color;
 	int		ceiling_color;
 	t_bool	floor_color_set;
@@ -129,6 +127,8 @@ typedef struct s_colors
 
 typedef struct s_map
 {
+	int			height;
+	int			width;
 	char		**map;
 	char		*path;
 }	t_map;
