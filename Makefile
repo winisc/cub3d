@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/08/11 17:49:20 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/12 19:36:48 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,20 +28,22 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/controls/events.c \
 		$(SRC_DIR)/controls/player.c \
 		$(SRC_DIR)/inits/img.c \
-		$(SRC_DIR)/inits/player.c \
 		$(SRC_DIR)/inits/map.c \
-		$(SRC_DIR)/parse/map_validations.c \
-		$(SRC_DIR)/parse/map_file.c \
+		$(SRC_DIR)/inits/player.c \
+		$(SRC_DIR)/parse/map.c \
+		$(SRC_DIR)/parse/file_validation.c \
+		$(SRC_DIR)/parse/header.c \
 		$(SRC_DIR)/parse/player.c \
 		$(SRC_DIR)/render/draw.c \
 		$(SRC_DIR)/render/map.c \
 		$(SRC_DIR)/render/raycast.c \
 		$(SRC_DIR)/render/render.c \
 		$(SRC_DIR)/render/textures.c \
-		$(SRC_DIR)/utils/math.c \
-		$(SRC_DIR)/utils/header.c \
 		$(SRC_DIR)/utils/clear.c \
+		$(SRC_DIR)/utils/header.c \
+		$(SRC_DIR)/utils/map_2.c \
 		$(SRC_DIR)/utils/map.c \
+		$(SRC_DIR)/utils/math.c \
 		$(SRC_DIR)/utils/player.c
 
 SRC_BONUS = $(SRC_DIR_BONUS)/cub3D_bonus.c

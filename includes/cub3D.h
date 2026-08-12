@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/11 21:50:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/12 19:32:22 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ char	**read_file(int fd);
 int		parse_file(t_game *game, char *map_file);
 
 /* parse -> header*/
-char	**parse_header(int fd, t_texpath *texpath, t_colors *colors);
+char	**parse_header(char **line, t_texpath *texpath, t_colors *colors);
 
 /* parse -> player*/
 int		set_player_pos(t_player *player, char direction, int x, int y);
@@ -190,7 +190,7 @@ int		valid_neighbor(char c);
 int		get_row_len(t_game *game, int y);
 int		check_interior_row(t_game *game, int y);
 int		validate_map_shape(t_game *game);
-char	**parse_map(t_game *game, int fd);
+int		parse_map(t_game *game);
 
 /* render */
 char		**get_map(t_game *game, char *map_file);
@@ -216,10 +216,18 @@ double	compute_delta_time(t_game *game);
 int		is_valid_char(char tile);
 void	free_lines(char **lines, int count);
 int		check_map_chars(t_game *game);
-int		is_header_line(const char *line);
-int		map_width(t_game *game);
-int		map_height(t_game *game);
 int		is_player(char direction);
 int		collide_checker(double x, double y, t_game *game);
+
+/* utils -> maps */
+int		first_non_space(char *row);
+int		valid_neighbor(char c);
+int		get_row_len(t_game *game, int y);
+int		check_border_row(char *row);
+int	count_rows(t_game *game);
+
+/* utils -> header */
+int		is_header_line(const char *line);
+int		is_blank(const char *line);
 
 #endif

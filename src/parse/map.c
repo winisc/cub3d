@@ -1,70 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validations.c                                  :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/11 21:17:05 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/12 17:10:40 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "cub3D.h"
-
-int	first_non_space(char *row);
-int	valid_neighbor(char c);
-int	get_row_len(t_game *game, int y);
-int	check_interior_row(t_game *game, int y);
-int	validate_map_shape(t_game *game);
-char	**parse_map(t_game *game, int fd);
-static int	check_border_row(char *row);
-
-int	first_non_space(char *row)
-{
-	int	x;
-
-	x = 0;
-	while (row[x] == ' ')
-		x++;
-	return (x);
-}
-
-int	valid_neighbor(char c)
-{
-	return (c == '1' || c == ' ');
-}
-
-int	get_row_len(t_game *game, int y)
-{
-	if (y < 0 || y >= game->map.height)
-		return (0);
-	return (ft_strlen(game->map.map[y]));
-}
-
-static int	check_border_row(char *row)
-{
-	int	x;
-
-	x = first_non_space(row);
-	while (row[x])
-	{
-		if (row[x] != '1' && row[x] != ' ')
-			return (1);
-		x++;
-	}
-	return (0);
-}
-
-int	count_rows(t_game *game)
-{
-	int	y;
-
-	y = 0;
-	while (game->map.map[y])
-		y++;
-	return (y);
-}
 
 int	check_width_rule(t_game *game, int y, int x)
 {
@@ -143,5 +89,14 @@ int	validate_map_shape(t_game *game)
 			return (1);
 		y++;
 	}
+	return (0);
+}
+
+int	parse_map(t_game *game)
+{
+	if (check_map_chars(game))
+		return (1);
+	if (validate_map_shape(game))
+		return (1);
 	return (0);
 }
