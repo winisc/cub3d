@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/10 20:47:06 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/11 21:50:53 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define ANGLE_SPEED 2.5
 # define PLAYER_SIZE 10
 # define PLAYER_HITBOX 5
+# define READ_CAP 20
 
 typedef enum s_bool
 {
@@ -168,19 +169,31 @@ void	init_texture_path(t_texpath *texpath);
 void	init_colors(t_colors *colors);
 void	init_player(t_player *player);
 void	init_player_movement(t_player *player);
+void	init_map(t_map *map);
 
-/* parse */
+/* parse -> file */
 char	**read_file(int fd);
-char	**parse_header(int fd, t_texpath *texpath, t_colors *colors);
-char	**parse_map(int fd);
 int		parse_file(t_game *game, char *map_file);
-int		pad_map(t_game *game);
+
+/* parse -> header*/
+char	**parse_header(int fd, t_texpath *texpath, t_colors *colors);
+
+/* parse -> player*/
 int		set_player_pos(t_player *player, char direction, int x, int y);
 void	set_player_dir(t_player *player, char direction);
+
+/* parse -> map*/
+int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
+int		first_non_space(char *row);
+int		valid_neighbor(char c);
+int		get_row_len(t_game *game, int y);
+int		check_interior_row(t_game *game, int y);
+int		validate_map_shape(t_game *game);
+char	**parse_map(t_game *game, int fd);
 
 /* render */
-char	**get_map(char *map_file);
+char		**get_map(t_game *game, char *map_file);
 void	draw_map(t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_square(t_pos pos, int size, int color, t_game *game);
@@ -202,8 +215,7 @@ double	get_time_seconds(void);
 double	compute_delta_time(t_game *game);
 int		is_valid_char(char tile);
 void	free_lines(char **lines, int count);
-int		check_file_chars(t_game *game);
-int		validate_map(t_game *game);
+int		check_map_chars(t_game *game);
 int		is_header_line(const char *line);
 int		map_width(t_game *game);
 int		map_height(t_game *game);

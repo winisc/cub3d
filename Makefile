@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/08/07 14:16:51 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/11 17:49:20 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/controls/player.c \
 		$(SRC_DIR)/inits/img.c \
 		$(SRC_DIR)/inits/player.c \
-		$(SRC_DIR)/parse/map.c \
+		$(SRC_DIR)/inits/map.c \
+		$(SRC_DIR)/parse/map_validations.c \
+		$(SRC_DIR)/parse/map_file.c \
 		$(SRC_DIR)/parse/player.c \
 		$(SRC_DIR)/render/draw.c \
 		$(SRC_DIR)/render/map.c \
@@ -37,6 +39,7 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/render/render.c \
 		$(SRC_DIR)/render/textures.c \
 		$(SRC_DIR)/utils/math.c \
+		$(SRC_DIR)/utils/header.c \
 		$(SRC_DIR)/utils/clear.c \
 		$(SRC_DIR)/utils/map.c \
 		$(SRC_DIR)/utils/player.c

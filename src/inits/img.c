@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inits.c                                            :+:      :+:    :+:   */
+/*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 11:32:32 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/03 18:15:53 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/11 15:34:10 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,4 @@ void	init_colors(t_colors *colors)
 	colors->floor_color = 0;
 	colors->ceiling_color_set = FALSE;
 	colors->floor_color_set = FALSE;
-	colors->height = 0;
-	colors->width = 0;
 }

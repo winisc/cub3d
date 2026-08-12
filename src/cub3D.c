@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/07 16:02:18 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/11 21:50:04 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	start_game(t_game *game, char *map_file)
 {
 	init_player(&game->player);
 	init_img(&game->img);
-	game->map.map = get_map(map_file);
+	init_map(&game->map);
+	game->map.map = get_map(game, map_file);
 	if (!game->map.map)
 		return (error_msg("Error\nUnable to load map\n"));
 	game->mlx = mlx_init();
