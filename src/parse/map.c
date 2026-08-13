@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/12 17:10:40 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 11:03:36 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ int	validate_map_shape(t_game *game)
 
 int	parse_map(t_game *game)
 {
-	if (check_map_chars(game))
-		return (1);
-	if (validate_map_shape(game))
-		return (1);
+	(void)game;
+	// if (check_map_chars(game))
+	// 	return (error_msg("map chars\n"));
+	// if (validate_map_shape(game))
+	// 	return (error_msg("map shape\n"));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 16:53:36 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/11 21:42:04 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 11:24:39 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	set_player_dir(t_player *player, char direction)
 int	set_player_pos(t_player *player, char direction, int x, int y)
 {
 	if(player->spawn_set == 1)
-		return (error_msg("Multiple spawn points detected\n"));
+		return (0);
 	if (!is_player(direction))
-		return (error_msg("Player spawn not found\n"));
+		return (error_msg("Error\nPlayer spawn not found\n"));
 	player->pos.x = x * BLOCK + BLOCK / 2;
 	player->pos.y = y * BLOCK + BLOCK / 2;
 	set_player_dir(player, direction);
@@ -57,5 +57,7 @@ int	find_spawn(t_game *game)
 		}
 		y++;
 	}
+	if (game->player.spawn_set == 0)
+		return (error_msg("Error\nPlayer spawn not found\n"));
 	return (0);
 }

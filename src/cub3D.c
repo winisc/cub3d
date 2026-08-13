@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/11 21:50:04 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 10:42:19 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ static int	valid_args(int argc, char **argv)
 int	start_game(t_game *game, char *map_file)
 {
 	init_player(&game->player);
-	init_img(&game->img);
 	init_map(&game->map);
-	game->map.map = get_map(game, map_file);
+	if (parse_file(game, map_file))
+		return (1);
 	if (!game->map.map)
 		return (error_msg("Error\nUnable to load map\n"));
+	init_img(&game->img);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (error_msg("Error\nFailed to initialize MLX\n"));
@@ -67,6 +68,7 @@ int	start_game(t_game *game, char *map_file)
 		return (error_msg("Error\nFailed to get image buffer\n"));
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
+	printf("\ntest\n");
 	return (0);
 }
 

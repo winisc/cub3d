@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:46:16 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/12 19:40:43 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 11:28:37 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,12 @@ int	parse_file(t_game *game, char *map_file)
 	lines = read_file(fd);
 	close(fd);
 	if (!lines)
-		return (1);
+		return (error_msg("Error 1\n"));
 	if (split_header_and_map(lines, &header, &map))
-		return (free(lines), 1);
+	{
+		free(lines);
+		return (error_msg("Error\nFile can't be read\n"), 1);
+	}
 	free(lines);
 	//if (parse_header(header, &game->texpath, &game->colors))
 	//{
@@ -145,7 +148,7 @@ int	parse_file(t_game *game, char *map_file)
 	//}
 	game->map.map = map;
 	if (parse_map(game))
-		return (1);
+		return (error_msg("Error\nInvalid Map\n"));
 	if (find_spawn(game))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 18:59:12 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/12 17:12:37 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 11:04:45 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	check_map_chars(t_game *game)
 		x = 0;
 		while (game->map.map[y][x])
 		{
-			if (!is_valid_char(game->map.map[y][x]))
-				return (1);
+			if (is_valid_char(game->map.map[y][x]))
+				return (error_msg("not valid char?\n"));
 			x++;
 		}
 		y++;
