@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:46:16 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 11:28:37 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:39:12 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_map_start(char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		if (lines[i][0] != '\0' && !is_header_line(lines[i]) && !is_blank(lines[i]))
+		if (lines[i][0] != '\0' && !is_header_line(lines[i]))
 			return (i);
 		i++;
 	}
@@ -116,7 +116,7 @@ int		split_header_and_map(char **lines, char ***header, char ***map)
 	if (alloc_split(header, map, header_count, map_count))
 		return (1);
 	copy_range(*header, lines, 0, map_start);
-	copy_range(*map, lines, header_count, total);
+	copy_range(*map, lines, map_start, total);
 	return (0);
 }
 

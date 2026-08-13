@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 11:03:36 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:41:30 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_interior_row(t_game *game, int y)
 	start = first_non_space(row);
 	if (row[start] == '\0' || row[start] != '1')
 		return (1);
-	if (row[ft_strlen(row) -1] != '1')
+	if (row[ft_strlen(row) - 1] != '1')
 		return (1);
 	x = start;
 	while (row[x])
@@ -67,8 +67,6 @@ int	check_interior_row(t_game *game, int y)
 			return (1);
 		x++;
 	}
-	if (game->player.spawn_set == 0)
-		return (error_msg("Error\nNo spawn points found\n"));
 	return (0);
 }
 
@@ -83,10 +81,10 @@ int	validate_map_shape(t_game *game)
 		if (y == 0 || y == game->map.height - 1)
 		{
 			if (check_border_row(game->map.map[y]))
-				return (1);
+				return (error_msg("border row\n"));
 		}
 		else if (check_interior_row(game, y))
-			return (1);
+			return (error_msg("check interior row\n"));
 		y++;
 	}
 	return (0);
@@ -94,10 +92,15 @@ int	validate_map_shape(t_game *game)
 
 int	parse_map(t_game *game)
 {
-	(void)game;
-	// if (check_map_chars(game))
-	// 	return (error_msg("map chars\n"));
-	// if (validate_map_shape(game))
-	// 	return (error_msg("map shape\n"));
+	int i = 0;
+	while (game->map.map[i])
+	{
+		printf("MAP[%d] = '%s'\n", i, game->map.map[i]);
+		i++;
+	}
+	if (check_map_chars(game))
+		return (error_msg("map chars\n"));
+	if (validate_map_shape(game))
+		return (error_msg("map shape\n"));
 	return (0);
 }

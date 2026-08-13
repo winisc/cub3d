@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:45:24 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/12 17:04:40 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 14:40:24 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	is_header_line(const char *line)
 		|| ft_strncmp(line, "EA ", 3) == 0
 		|| ft_strncmp(line, "F ", 2) == 0
 		|| ft_strncmp(line, "C ", 2) == 0
+		|| line[0] == ' '
+		|| line[0] == '\n'
 		|| line[0] == '\0');
 }
 
