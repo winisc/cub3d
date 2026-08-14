@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/13 21:51:09 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:08:57 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,8 @@ int		is_walkable(char c);
 int		tile_is_space(t_game *game, int y, int x);
 int		check_cell_leak(t_game *game, int y, int x);
 int		check_walkable_cells(t_game *game, int y);
+int		map_height(t_game *game);
+int		map_width(t_game *game);
 
 /* utils -> header */
 int		is_header_line(const char *line);

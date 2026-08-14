@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 21:52:24 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 23:11:07 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ int	map_width(t_game *game)
 		y++;
 	}
 	return (width);
+}
+
+int	map_height(t_game *game)
+{
+	int	y;
+
+	y = 0;
+	while (game->map.map[y])
+		y++;
+	return (y);
 }
 
 static char	get_tile(t_game *game, int y, int x)
@@ -111,8 +121,6 @@ int	validate_map_flood(t_game *game)
 	int		start_y;
 	int		leak;
 
-	if (game->player.spawn_set == 0)
-		return (error_msg("Error\nNo spawn point\n"));
 	game->map.height = map_height(game);
 	game->map.width = map_width(game);
 	start_x = (int)(game->player.pos.x / BLOCK);
