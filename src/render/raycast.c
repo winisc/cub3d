@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:20:00 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 12:15:22 by wini             ###   ########.fr       */
+/*   Updated: 2026/08/04 15:45:48 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,25 @@ int	touch(float px, float py, t_game *game)
 {
 	int	x;
 	int	y;
+	int	row_len;
 
-	x = px / BLOCK;
-	y = py / BLOCK;
-	if (game->map[y][x] == '1')
+	if (!game || !game->map.map || px < 0 || py < 0)
+		return (1);
+	x = (int)(px / BLOCK);
+	y = (int)(py / BLOCK);
+	if (!game->map.map[y])
+		return (1);
+	row_len = ft_strlen(game->map.map[y]);
+	if (x < 0 || x >= row_len)
+		return (1);
+	if (game->map.map[y][x] == '1')
 		return (1);
 	return (0);
 }
 
-t_point	cast_ray(t_game *game, t_point start, float ray_angle)
+t_pos	cast_ray(t_game *game, t_pos start, float ray_angle)
 {
-	t_point	ray;
+	t_pos	ray;
 	float	cos_angle;
 	float	sin_angle;
 
@@ -45,13 +53,15 @@ t_point	cast_ray(t_game *game, t_point start, float ray_angle)
 
 float	wall_height(float dist)
 {
+	if (dist <= 0.0001f)
+		return (HEIGHT);
 	return ((BLOCK / dist) * (WIDTH / 2));
 }
 
 float	ray_distance(t_player *player, t_game *game, float ray_angle)
 {
-	t_point	center;
-	t_point	hit;
+	t_pos	center;
+	t_pos	hit;
 
 	center.x = player->pos.x + 5;
 	center.y = player->pos.y + 5;

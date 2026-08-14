@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:10:52 by wini             ###   ########.fr       */
+/*   Updated: 2026/07/31 21:26:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	render_minimap_view(t_game *game, t_player *player)
 {
-	draw_square(player->pos, 10, 0xFFF000, game);
+	draw_square(player->pos, PLAYER_SIZE, 0xFFF000, game);
 	draw_map(game);
 }
 
@@ -40,16 +40,18 @@ void	cast_rays(t_player *player, t_game *game)
 	}
 }
 
-int	draw_loop(t_game *game)
+int	draw_loop(void *param)
 {
 	t_player	*player;
-
+	t_game		*game;
+	
+	game = (t_game *)param;
 	player = &game->player;
-	player_controller(player);
+	player_controller(game);
 	clear_image(game);
 	if (player->debug)
 		render_minimap_view(game, player);
 	cast_rays(player, game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 	return (0);
 }

@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/06/22 19:03:32 by wini             ###   ########.fr       */
+/*   Updated: 2026/08/14 14:14:42 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdbool.h>
 # include "mlx.h"
 # include "libft.h"
+# include <sys/time.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
@@ -39,79 +41,195 @@
 # define KEY_PRESS_MASK 1
 # define KEY_RELEASE_MASK 2
 
+# define DESTROY_WINDOW 17
+# define DESTROY_WINDOW_MASK 0
+# define KEY_ESCAPE 65307
+
 # define PI 3.14159265350
 
-# define SPEED 0.8
-# define ANGLE_SPEED 0.01
+# define SPEED 200
+# define ANGLE_SPEED 2.5
+# define PLAYER_SIZE 10
+# define PLAYER_HITBOX 5
+# define READ_CAP 20
 
-typedef struct s_point
+typedef enum s_bool
 {
-	float	x;
-	float	y;
-}	t_point;
+	FALSE,
+	TRUE,
+}	t_bool;
+
+typedef struct s_pos
+{
+	float	x;					/* movement speed (horizontal) */
+	float	y;					/* movement speed (vertical) */
+}	t_pos;
+
+typedef struct s_move
+{
+	double		move_speed_x;
+	double		move_speed_y;
+	double		strafe_x;
+	double		strafe_y;
+	double		dir_x;
+	double		dir_y;
+}	t_move;
 
 typedef struct s_player
 {
-	t_point	pos;
-	float	angle;
-	int		key_up;
-	int		key_down;
-	int		key_left;
-	int		key_right;
-	int		left_rotate;
-	int		right_rotate;
-	int		debug;
+	t_move		move;
+	t_pos		pos;
+	t_bool		spawn_set;
+	float		angle;				/* dir_x or dir_y */
+	int			key_up;				/* W -> move up */
+	int			key_down;			/* S -> move down */
+	int			key_strafe_left;	/* A -> move left */
+	int			key_strafe_right;	/* D -> move right */
+	int			key_left_rotate;	/* left arrow key */
+	int			key_right_rotate;	/* right arrow key */
+	int			debug;				/* minimap view */
 }	t_player;
+
+typedef struct s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	char	*data;
+	int		endian;
+	int		bpp;
+	int		line_len;
+	int		width;
+	int		height;
+}	t_img;
+
+typedef struct s_texpath
+{
+	char		*no;
+	char		*ea;
+	char		*so;
+	char		*we;
+}	t_texpath;
+
+typedef struct s_tex
+{
+	t_img		no;
+	t_img		ea;
+	t_img		so;
+	t_img		we;
+}	t_tex;
+
+typedef struct s_colors
+{
+	int		floor_color;
+	int		ceiling_color;
+	t_bool	floor_color_set;
+	t_bool	ceiling_color_set;
+}	t_colors;
+
+typedef struct s_map
+{
+	int			height;
+	int			width;
+	char		**map;
+	char		*path;
+}	t_map;
 
 typedef struct s_game
 {
+	t_img		img;
+	t_tex		tex;
+	t_texpath	texpath;
+	t_colors	colors;
+	
+	t_map		map;
+	
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*data;
-	int			bpp;
-	int			line_len;
-	int			endian;
+	double		last_frame_time;
 	t_player	player;
-	char		**map;
 }	t_game;
 
-/* game.c */
-void	init_game(t_game *game, char *map_file);
+/* main / game */
+int		start_game(t_game *game, char *map_file);
+int		error_msg(char *msg);
 
-/* events.c */
-int		key_press(int keycode, t_player *player);
-int		key_release(int keycode, t_player *player);
+/* controls */
+int		close_game(t_game *game);
+int		key_press(int keycode, void *param);
+int		key_release(int keycode, void *param);
+void	setup_hooks(t_game *game);
+void	rotate_player(t_game *game, double delta_time);
+void	move_player(t_game *game, double delta_time);
+void	player_controller(t_game *game);
 
-/* player.c */
+/* inits */
+void	init_img(t_img *img);
+void	init_texture(t_tex *texture);
+void	init_texture_path(t_texpath *texpath);
+void	init_colors(t_colors *colors);
 void	init_player(t_player *player);
-void	rotate_player(t_player *player);
-void	move_player(t_player *player, float cos_angle, float sin_angle);
-void	player_controller(t_player *player);
+void	init_player_movement(t_player *player);
+void	init_map(t_map *map);
 
-/* map.c */
-char	**get_map(char *map_file);
+/* parse -> file */
+char	**read_file(int fd);
+int		parse_file(t_game *game, char *map_file);
+int		split_header_and_map(char **lines, char ***header, char ***map);
+void	strip_newline(char *line);
+int		find_map_start(char **lines);
+int		count_range(char **lines, int start, int delimiter);
+int		alloc_split(char ***header, char ***map, int header_count, int map_count);
+void	copy_range(char **dest, char **src, int start, int delimiter);
+
+/* parse -> header*/
+char	**parse_header(char **line, t_texpath *texpath, t_colors *colors);
+int		is_header_line(const char *line);
+int		is_blank(const char *line);
+
+/* parse -> player*/
+int		is_player(char direction);
+int		set_player_pos(t_player *player, char direction, int x, int y);
+void	set_player_dir(t_player *player, char direction);
+int		collide_checker(double x, double y, t_game *game);
+
+/* parse -> map*/
+int		is_valid_char(char tile);
+int		pad_map(t_game *game);
+int		find_spawn(t_game *game);
+int		parse_map(t_game *game);
+int		validate_map_flood(t_game *game);
+int		count_rows(t_game *game);
+int		is_walkable(char c);
+int		tile_is_space(t_game *game, int y, int x);
+int		check_cell_leak(t_game *game, int y, int x);
+int		check_walkable_cells(t_game *game, int y);
+int		map_height(t_game *game);
+int		map_width(t_game *game);
+int		check_map_chars(t_game *game);
+int		check_map_end(char **lines, int map_start);
+int		is_map_line(char *line);
+int		is_line_empty(char *line);
+
+/* render */
 void	draw_map(t_game *game);
-
-/* draw.c */
 void	put_pixel(int x, int y, int color, t_game *game);
-void	draw_square(t_point pos, int size, int color, t_game *game);
+void	draw_square(t_pos pos, int size, int color, t_game *game);
 void	draw_wall(t_game *game, int column, float height);
 void	clear_image(t_game *game);
-
-/* raycast.c */
 int		touch(float px, float py, t_game *game);
-t_point	cast_ray(t_game *game, t_point start, float ray_angle);
+t_pos	cast_ray(t_game *game, t_pos start, float ray_angle);
 float	wall_height(float dist);
 float	ray_distance(t_player *player, t_game *game, float ray_angle);
-
-/* math_utils.c */
-float	distance(float x, float y);
-float	fixed_dist(t_point pos1, t_point pos2, t_game *game);
-
-/* render.c */
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
-int		draw_loop(t_game *game);
+int		draw_loop(void *param);
+
+/* utils */
+void	cleanup_game(t_game *game);
+float	distance(float x, float y);
+float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
+double	get_time_seconds(void);
+double	compute_delta_time(t_game *game);
+void	free_lines(char **lines, int count);
 
 #endif
