@@ -26,7 +26,7 @@ void	set_player_dir(t_player *player, char direction)
 
 int	set_player_pos(t_player *player, char direction, int x, int y)
 {
-	if(player->spawn_set == 1)
+	if (player->spawn_set == 1)
 		return (error_msg("Error\nMultiple spawn points"));
 	if (!is_player(direction))
 		return (error_msg("Error\nPlayer spawn not found\n"));

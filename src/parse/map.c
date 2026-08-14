@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "cub3D.h"
+#include "cub3D.h"
 
 int	map_width(t_game *game)
 {
@@ -38,59 +38,6 @@ int	map_height(t_game *game)
 	while (game->map.map[y])
 		y++;
 	return (y);
-}
-
-static char	get_tile(t_game *game, int y, int x)
-{
-	if (y < 0 || y >= game->map.height)
-		return (' ');
-	if (x < 0 || x >= (int)ft_strlen(game->map.map[y]))
-		return (' ');
-	return (game->map.map[y][x]);
-}
-
-static int	is_visited(char **visited, int y, int x)
-{
-	return (visited[y][x] == 'V');
-}
-
-static char	**alloc_visited(t_game *game)
-{
-	char	**visited;
-	int		y;
-
-	visited = ft_calloc(game->map.height + 1, sizeof(char *));
-	if (!visited)
-		return (NULL);
-	y = 0;
-	while (y < game->map.height)
-	{
-		visited[y] = ft_calloc(game->map.width + 1, sizeof(char));
-		if (!visited[y])
-		{
-			while (y > 0)
-				free(visited[--y]);
-			free(visited);
-			return (NULL);
-		}
-		y++;
-	}
-	return (visited);
-}
-
-static void	free_visited(char **visited, int height)
-{
-	int	y;
-
-	if (!visited)
-		return ;
-	y = 0;
-	while (y < height)
-	{
-		free(visited[y]);
-		y++;
-	}
-	free(visited);
 }
 
 static int	flood_fill(t_game *game, char **visited, int y, int x)

@@ -25,30 +25,10 @@ static int	parse_texture_line(char *line, t_texpath *texpath)
 	return (1);
 }
 
-int	parse_component(char **line, int *value)
-{
-	int	result;
-
-	*line = skip_spaces(*line);
-	if (**line < '0' || **line > '9')
-		return  (1);
-	result = 0;
-	while (**line >= '0' && **line <='9')
-	{
-		result = result * 10 + (**line - '0');
-		if (result > 255)
-			return (1);
-		(*line)++;
-	}
-	*value = result;
-	*line = skip_spaces(*line);
-	return (0);
-}
-
 static int	parse_color_line(char *line, t_colors *colors)
 {
 	char	*value;
-	
+
 	value = skip_spaces(line + 1);
 	if (line[0] == 'F')
 	{
@@ -69,20 +49,10 @@ static int	parse_color_line(char *line, t_colors *colors)
 	return (0);
 }
 
-int is_texture_id(char *line, char *id)
-{
-	int	len;
-
-	len = ft_strlen(id);
-	return (ft_strncmp(line, id, len) == 0
-		&& has_space_after_id(line, len));
-}
 static int	parse_header_line(char *line, t_texpath *texpath, t_colors *colors)
 {
-	if (is_texture_id(line, "NO")
-			|| is_texture_id(line, "SO")
-			|| is_texture_id(line, "EA")
-			|| is_texture_id(line, "WE"))
+	if (is_texture_id(line, "NO") || is_texture_id(line, "SO")
+		|| is_texture_id(line, "EA") || is_texture_id(line, "WE"))
 		return (parse_texture_line(line, texpath));
 	if (is_color(line, 'F') || is_color(line, 'C'))
 		return (parse_color_line(line, colors));

@@ -215,7 +215,6 @@ int		is_blank(const char *line);
 int		is_color(char *line, char id);
 int		parse_header(char **line, t_texpath *texpath, t_colors *colors);
 int		is_header_line(const char *line);
-int		is_blank(const char *line);
 int		is_texture_id(char *line, char *id);
 
 /* parse -> player*/
@@ -230,6 +229,10 @@ int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
 int		parse_map(t_game *game);
 int		validate_map_flood(t_game *game);
+char	get_tile(t_game *game, int y, int x);
+int		is_visited(char **visited, int y, int x);
+char	**alloc_visited(t_game *game);
+void	free_visited(char **visited, int height);
 int		count_rows(t_game *game);
 int		is_walkable(char c);
 int		tile_is_space(t_game *game, int y, int x);

@@ -12,38 +12,46 @@
 
 #include "cub3D.h"
 
+static char	**grow_lines(char **lines, int *cap, int count)
+{
+	char	**tmp;
+
+	if (count + 1 < *cap)
+		return (lines);
+	*cap *= 2;
+	tmp = realloc(lines, sizeof(char *) * *cap);
+	if (!tmp)
+		return (free_lines(lines, count), NULL);
+	return (tmp);
+}
+
 char	**read_file(int fd)
 {
 	char	**lines;
-	char	**tmp;
 	char	*line;
 	int		count;
 	int		cap;
-	
-	cap = 20;
+
+	cap = READ_CAP;
 	count = 0;
 	lines = malloc(sizeof(char *) * cap);
 	if (!lines)
 		return (NULL);
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (count + 1 >= cap)
-		{
-			cap *= 2;
-			tmp = realloc(lines, sizeof(char *) * cap);
-			if (!tmp)
-				return (free_lines(lines, count), NULL);
-			lines = tmp;
-		}
+		lines = grow_lines(lines, &cap, count);
+		if (!lines)
+			return (free(line), NULL);
 		strip_newline(line);
-		lines[count] = line;
-		count++;
+		lines[count++] = line;
+		line = get_next_line(fd);
 	}
 	lines[count] = NULL;
 	return (lines);
 }
 
-int		split_header_and_map(char **lines, char ***header, char ***map)
+int	split_header_and_map(char **lines, char ***header, char ***map)
 {
 	int	map_start;
 	int	total;
@@ -67,6 +75,18 @@ int		split_header_and_map(char **lines, char ***header, char ***map)
 	return (0);
 }
 
+static int	validate_parsed(t_game *game, char **map)
+{
+	game->map.map = map;
+	if (check_map_chars(game))
+		return (1);
+	if (find_spawn(game))
+		return (1);
+	if (validate_map_flood(game))
+		return (1);
+	return (0);
+}
+
 int	parse_file(t_game *game, char *map_file)
 {
 	int		fd;
@@ -82,23 +102,9 @@ int	parse_file(t_game *game, char *map_file)
 	if (!lines)
 		return (error_msg("Error\nUnable to read file\n"));
 	if (split_header_and_map(lines, &header, &map))
-	{
-		free(lines);
-		return (1);
-	}
+		return (free(lines), 1);
 	free(lines);
 	if (parse_header(header, &game->texpath, &game->colors))
-	{
-		// free_header(header);
-		// free_map(map);
 		return (1);
-	}
-	game->map.map = map;
-	if (check_map_chars(game))
-		return (1);
-	if (find_spawn(game))
-		return (1);
-	if (validate_map_flood(game))
-		return (1);
-	return (0);
+	return (validate_parsed(game, map));
 }

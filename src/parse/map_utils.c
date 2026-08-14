@@ -17,24 +17,11 @@ int	is_valid_char(char tile)
 	return (tile == '1' || tile == '0' || tile == ' ' || is_player(tile));
 }
 
-void	free_lines(char **lines, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		free(lines[i]);
-		i++;
-	}
-	free(lines);
-}
-
 int	check_map_chars(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (game->map.map[y])
 	{
@@ -52,7 +39,7 @@ int	check_map_chars(t_game *game)
 
 int	is_line_empty(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -66,10 +53,9 @@ int	is_line_empty(char *line)
 
 int	is_map_line(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
-
 	if (is_line_empty(line))
 		return (0);
 	while (line[i])
@@ -84,7 +70,7 @@ int	is_map_line(char *line)
 int	check_map_end(char **lines, int map_start)
 {
 	int	i;
-	
+
 	i = map_start;
 	while (lines[i])
 	{
