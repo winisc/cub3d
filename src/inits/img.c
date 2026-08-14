@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 11:32:32 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/11 15:34:10 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 18:17:32 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	init_colors(t_colors *colors)
 {
 	colors->ceiling_color = 0;
 	colors->floor_color = 0;
-	colors->ceiling_color_set = FALSE;
-	colors->floor_color_set = FALSE;
+	colors->ceiling_color_set = 0;
+	colors->floor_color_set = 0;
 }

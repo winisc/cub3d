@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/14 14:14:42 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 18:05:29 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@
 
 typedef enum s_bool
 {
-	FALSE,
 	TRUE,
+	FALSE,
 }	t_bool;
 
 typedef struct s_pos
@@ -122,8 +122,8 @@ typedef struct s_colors
 {
 	int		floor_color;
 	int		ceiling_color;
-	t_bool	floor_color_set;
-	t_bool	ceiling_color_set;
+	int		floor_color_set;
+	int		ceiling_color_set;
 }	t_colors;
 
 typedef struct s_map
@@ -182,9 +182,17 @@ int		alloc_split(char ***header, char ***map, int header_count, int map_count);
 void	copy_range(char **dest, char **src, int start, int delimiter);
 
 /* parse -> header*/
-char	**parse_header(char **line, t_texpath *texpath, t_colors *colors);
+int		store_texture(char **dest, char *line, int id_len);
+int		parse_rgb(char *line, int *color);
+int		has_space_after_id(char *line, int len);
+char	*skip_spaces(char *line);
+int		parse_component(char **line, int *value);
+int		is_blank(const char *line);
+int		is_color(char *line, char id);
+int		parse_header(char **line, t_texpath *texpath, t_colors *colors);
 int		is_header_line(const char *line);
 int		is_blank(const char *line);
+int		is_texture_id(char *line, char *id);
 
 /* parse -> player*/
 int		is_player(char direction);
