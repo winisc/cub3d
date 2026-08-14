@@ -1,0 +1,16 @@
+NO ./maps/textures/NO.xpm
+SO ./maps/textures/SO.xpm
+WE ./maps/textures/WE.xpm
+EA ./maps/textures/EA.xpm
+
+F 54,54,58
+C 74,141,214
+
+11111111
+10000001
+10000001111
+10000000001
+100000E0001
+10000001111
+10000001
+11111111
