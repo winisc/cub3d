@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 14:41:30 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:02:04 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,22 @@ int	check_interior_row(t_game *game, int y)
 {
 	char	*row;
 	int		x;
-	int		start;
 
 	row = game->map.map[y];
-	start = first_non_space(row);
-	if (row[start] == '\0' || row[start] != '1')
+	if (is_blank(row[0]))
 		return (1);
-	if (row[ft_strlen(row) - 1] != '1')
+	if (first_non_space(row) != 0 && row[0] != ' ')
 		return (1);
-	x = start;
-	while (row[x])
-	{
-		if (check_width_rule(game, y, x))
-			return (1);
-		if (row[x] == ' ' && check_space_neighbors(game, y, x))
-			return (1);
-		x++;
-	}
+	x = first_non_space(row);
+	if (row[x] != '1')
+		return (1);
+	x = ft_strlen(row) - 1;
+	while (x >= 0 && row[x] == ' ')
+		x--;
+	if (x < 0 || row[x] != '1')
+		return (1);
+	if (check_walkable_cells(game, y))
+		return (1);
 	return (0);
 }
 
@@ -95,7 +94,7 @@ int	parse_map(t_game *game)
 	int i = 0;
 	while (game->map.map[i])
 	{
-		printf("MAP[%d] = '%s'\n", i, game->map.map[i]);
+		printf("MAP[%d] = %s\n", i, game->map.map[i]);
 		i++;
 	}
 	if (check_map_chars(game))

@@ -12,6 +12,20 @@
 
 #include "cub3D.h"
 
+static void	sanitize_line(char *line)
+{
+	int	len;
+
+	if (!line)
+		return ;
+	len = ft_strlen(line);
+	while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
+	{
+		line[len - 1] = '\0';
+		len--;
+	}
+}
+
 char	**read_file(int fd)
 {
 	char	**lines;
@@ -35,6 +49,7 @@ char	**read_file(int fd)
 				return (free_lines(lines, count), NULL);
 			lines = tmp;
 		}
+		sanitize_line(line);
 		lines[count] = line;
 		count++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/12 19:32:22 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:06:00 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ void	set_player_dir(t_player *player, char direction);
 /* parse -> map*/
 int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
-int		first_non_space(char *row);
 int		valid_neighbor(char c);
 int		get_row_len(t_game *game, int y);
 int		check_interior_row(t_game *game, int y);
@@ -224,7 +223,11 @@ int		first_non_space(char *row);
 int		valid_neighbor(char c);
 int		get_row_len(t_game *game, int y);
 int		check_border_row(char *row);
-int	count_rows(t_game *game);
+int		count_rows(t_game *game);
+int		is_walkable(char c);
+int		tile_is_space(t_game *game, int y, int x);
+int		check_cell_leak(t_game *game, int y, int x);
+int		check_walkable_cells(t_game *game, int y);
 
 /* utils -> header */
 int		is_header_line(const char *line);

@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/08/12 19:36:48 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/13 17:15:41 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,9 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/inits/img.c \
 		$(SRC_DIR)/inits/map.c \
 		$(SRC_DIR)/inits/player.c \
-		$(SRC_DIR)/parse/map.c \
 		$(SRC_DIR)/parse/file_validation.c \
 		$(SRC_DIR)/parse/header.c \
+		$(SRC_DIR)/parse/map.c \
 		$(SRC_DIR)/parse/player.c \
 		$(SRC_DIR)/render/draw.c \
 		$(SRC_DIR)/render/map.c \
