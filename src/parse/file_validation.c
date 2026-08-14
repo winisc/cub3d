@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:46:16 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/14 14:34:32 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 17:07:45 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,18 @@ int	parse_file(t_game *game, char *map_file)
 		return (1);
 	}
 	free(lines);
-
+	if (parse_header(header, &game->texpath, &game->colors))
+	{
+		// free_header(header);
+		// free_map(map);
+		return (1);
+	}
+	game->map.map = map;
+	if (check_map_chars(game))
+		return (1);
+	if (find_spawn(game))
+		return (1);
+	if (validate_map_flood(game))
+		return (1);
 	return (0);
 }

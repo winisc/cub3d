@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/13 10:42:19 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 18:08:44 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	start_game(t_game *game, char *map_file)
 {
 	init_player(&game->player);
 	init_map(&game->map);
+	init_texture_path(&game->texpath);
+	init_colors(&game->colors);
 	if (parse_file(game, map_file))
 		return (1);
 	if (!game->map.map)
