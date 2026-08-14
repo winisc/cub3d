@@ -15,6 +15,7 @@ são relativos ao diretório de execução):
 | `pillars.cub` | paredes internas / câmaras, spawn `S` |
 | `irregular.cub` | bordas dentadas (larguras variando), spawn `E` |
 | `big.cub` | mapa grande 80×40 com pilares, spawn `N` |
+| `huge.cub` | mapa **muito grande** 500×250 (125k células) com pilares, spawn `N` — teste de stress |
 
 ## Inválidos (`maps/invalid/`) — devem imprimir `Error` + motivo
 
