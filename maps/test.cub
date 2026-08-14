@@ -1,10 +1,10 @@
-NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/WE.xpm
-EA ./textures/EA.xpm
+NO ./maps/textures/NO.xpm
+SO ./maps/textures/SO.xpm
+WE ./maps/textures/WE.xpm
+EA ./maps/textures/EA.xpm
 
-F 220, 000, 0
-C 225, 30, 0
+F 54, 54, 58
+C 74, 141, 214
 
 111111111111
 100000000001

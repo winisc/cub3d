@@ -32,25 +32,6 @@ int	touch(float px, float py, t_game *game)
 	return (0);
 }
 
-t_pos	cast_ray(t_game *game, t_pos start, float ray_angle)
-{
-	t_pos	ray;
-	float	cos_angle;
-	float	sin_angle;
-
-	ray = start;
-	cos_angle = cos(ray_angle);
-	sin_angle = sin(ray_angle);
-	while (!touch(ray.x, ray.y, game))
-	{
-		if (game->player.debug)
-			put_pixel(ray.x, ray.y, 0xFF0000, game);
-		ray.x += cos_angle;
-		ray.y += sin_angle;
-	}
-	return (ray);
-}
-
 float	wall_height(float dist)
 {
 	if (dist <= 0.0001f)
@@ -58,13 +39,24 @@ float	wall_height(float dist)
 	return ((BLOCK / dist) * (WIDTH / 2));
 }
 
-float	ray_distance(t_player *player, t_game *game, float ray_angle)
+void	draw_ray(t_game *game, t_pos start, t_pos hit)
 {
-	t_pos	center;
-	t_pos	hit;
+	float	dx;
+	float	dy;
+	float	steps;
+	int		i;
 
-	center.x = player->pos.x + 5;
-	center.y = player->pos.y + 5;
-	hit = cast_ray(game, center, ray_angle);
-	return (fixed_dist(center, hit, game));
+	dx = hit.x - start.x;
+	dy = hit.y - start.y;
+	steps = fmaxf(fabsf(dx), fabsf(dy));
+	if (steps < 1)
+		return ;
+	dx /= steps;
+	dy /= steps;
+	i = 0;
+	while (i < (int)steps)
+	{
+		put_pixel(start.x + dx * i, start.y + dy * i, 0xFF0000, game);
+		i++;
+	}
 }
