@@ -38,39 +38,19 @@ static int	valid_args(int argc, char **argv)
 
 int	start_game(t_game *game, char *map_file)
 {
-	init_player(&game->player);
-	init_map(&game->map);
-	init_texture_path(&game->texpath);
-	init_colors(&game->colors);
+	init_game_data(game);
 	if (parse_file(game, map_file))
 		return (1);
 	if (!game->map.map)
 		return (error_msg("Error\nUnable to load map\n"));
-	init_img(&game->img);
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		return (error_msg("Error\nFailed to initialize MLX\n"));
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, GAME_NAME);
-	if (!game->win)
+	if (init_mlx(game))
+		return (1);
+	if (load_textures(game))
 	{
 		cleanup_game(game);
-		return (error_msg("Error\nFailed to create window\n"));
-	}
-	game->img.img_ptr = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (!game->img.img_ptr)
-	{
-		cleanup_game(game);
-		return (error_msg("Error\nFailed to create image\n"));
-	}
-	game->img.data = mlx_get_data_addr(game->img.img_ptr,
-			&game->img.bpp, &game->img.line_len, &game->img.endian);
-	if (!game->img.data)
-	{
-		cleanup_game(game);
-		return (error_msg("Error\nFailed to get image buffer\n"));
+		return (1);
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
-	printf("\ntest\n");
 	return (0);
 }
 

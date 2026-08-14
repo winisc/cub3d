@@ -14,6 +14,7 @@
 
 void	init_img(t_img *img)
 {
+	img->img_ptr = NULL;
 	img->addr = NULL;
 	img->data = NULL;
 	img->bpp = 0;

@@ -41,17 +41,45 @@ void	draw_square(t_pos pos, int size, int color, t_game *game)
 	}
 }
 
-void	draw_wall(t_game *game, int column, float height)
+void	draw_wall(t_game *game, int column, t_img *tex, t_ray ray)
 {
-	int	start_y;
-	int	end;
+	int	height;
+	int	start;
+	int	y;
+	int	tex_x;
+	int	tex_y;
 
-	start_y = (HEIGHT - height) / 2;
-	end = start_y + height;
-	while (start_y < end)
+	height = (int)wall_height(ray.dist);
+	start = (HEIGHT - height) / 2;
+	tex_x = (int)(ray.wall_x / BLOCK * tex->width);
+	y = start;
+	while (y < start + height)
 	{
-		put_pixel(column, start_y, 0x0000FF, game);
-		start_y++;
+		tex_y = (int)((float)(y - start) / height * tex->height);
+		if (y >= 0 && y < HEIGHT)
+			put_pixel(column, y, tex_pixel(tex, tex_x, tex_y), game);
+		y++;
+	}
+}
+
+void	draw_background(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (y < HEIGHT / 2)
+				put_pixel(x, y, game->colors.ceiling_color, game);
+			else
+				put_pixel(x, y, game->colors.floor_color, game);
+			x++;
+		}
+		y++;
 	}
 }
 

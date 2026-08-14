@@ -27,6 +27,7 @@ INCLUDES_BONUS = -Iincludes_bonus -I$(MLX_DIR) -I$(LIBFT_DIR)
 SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/controls/events.c \
 		$(SRC_DIR)/controls/player.c \
+		$(SRC_DIR)/inits/game.c \
 		$(SRC_DIR)/inits/img.c \
 		$(SRC_DIR)/inits/map.c \
 		$(SRC_DIR)/inits/player.c \
@@ -39,6 +40,7 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/parse/map_utils_2.c \
 		$(SRC_DIR)/parse/map_utils.c \
 		$(SRC_DIR)/parse/player_utils.c \
+		$(SRC_DIR)/render/dda.c \
 		$(SRC_DIR)/render/draw.c \
 		$(SRC_DIR)/render/map.c \
 		$(SRC_DIR)/render/raycast.c \
