@@ -134,15 +134,36 @@ typedef struct s_map
 	char		*path;
 }	t_map;
 
+typedef struct s_ray
+{
+	t_pos		hit;
+	float		dist;
+	float		wall_x;
+	int			side;
+}	t_ray;
+
+typedef struct s_dda
+{
+	t_pos		pos;
+	t_pos		dir;
+	t_pos		delta;
+	t_pos		side_dist;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	int			side;
+}	t_dda;
+
 typedef struct s_game
 {
 	t_img		img;
 	t_tex		tex;
 	t_texpath	texpath;
 	t_colors	colors;
-	
+
 	t_map		map;
-	
+
 	void		*mlx;
 	void		*win;
 	double		last_frame_time;
@@ -163,6 +184,8 @@ void	move_player(t_game *game, double delta_time);
 void	player_controller(t_game *game);
 
 /* inits */
+void	init_game_data(t_game *game);
+int		init_mlx(t_game *game);
 void	init_img(t_img *img);
 void	init_texture(t_tex *texture);
 void	init_texture_path(t_texpath *texpath);
@@ -178,7 +201,8 @@ int		split_header_and_map(char **lines, char ***header, char ***map);
 void	strip_newline(char *line);
 int		find_map_start(char **lines);
 int		count_range(char **lines, int start, int delimiter);
-int		alloc_split(char ***header, char ***map, int header_count, int map_count);
+int		alloc_split(char ***header, char ***map,
+			int header_count, int map_count);
 void	copy_range(char **dest, char **src, int start, int delimiter);
 
 /* parse -> header*/
@@ -222,17 +246,22 @@ int		is_line_empty(char *line);
 void	draw_map(t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_square(t_pos pos, int size, int color, t_game *game);
-void	draw_wall(t_game *game, int column, float height);
+void	draw_wall(t_game *game, int column, t_img *tex, t_ray ray);
+void	draw_background(t_game *game);
 void	clear_image(t_game *game);
 int		touch(float px, float py, t_game *game);
-t_pos	cast_ray(t_game *game, t_pos start, float ray_angle);
+t_ray	cast_ray(t_game *game, t_pos start, float ray_angle);
 float	wall_height(float dist);
-float	ray_distance(t_player *player, t_game *game, float ray_angle);
+void	draw_ray(t_game *game, t_pos start, t_pos hit);
 void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
+int		load_textures(t_game *game);
+int		tex_pixel(t_img *tex, int x, int y);
+t_img	*pick_texture(t_game *game, t_ray *ray, float cos_a, float sin_a);
 
 /* utils */
+void	destroy_textures(t_game *game);
 void	cleanup_game(t_game *game);
 float	distance(float x, float y);
 float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
