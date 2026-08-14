@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 18:59:12 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 20:44:06 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:36:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,4 @@ int	check_map_chars(t_game *game)
 		y++;
 	}
 	return (0);
-}
-
-int	first_non_space(char *row)
-{
-	int	x;
-
-	x = 0;
-	while (row[x] == ' ')
-		x++;
-	return (x);
 }

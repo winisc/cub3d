@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/13 21:06:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:51:09 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void	init_map(t_map *map);
 /* parse -> file */
 char	**read_file(int fd);
 int		parse_file(t_game *game, char *map_file);
+int		split_header_and_map(char **lines, char ***header, char ***map);
 
 /* parse -> header*/
 char	**parse_header(char **line, t_texpath *texpath, t_colors *colors);
@@ -185,14 +186,10 @@ void	set_player_dir(t_player *player, char direction);
 /* parse -> map*/
 int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
-int		valid_neighbor(char c);
-int		get_row_len(t_game *game, int y);
-int		check_interior_row(t_game *game, int y);
-int		validate_map_shape(t_game *game);
 int		parse_map(t_game *game);
+int		validate_map_flood(t_game *game);
 
 /* render */
-char		**get_map(t_game *game, char *map_file);
 void	draw_map(t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_square(t_pos pos, int size, int color, t_game *game);
@@ -218,11 +215,14 @@ int		check_map_chars(t_game *game);
 int		is_player(char direction);
 int		collide_checker(double x, double y, t_game *game);
 
+/* utils -> file */
+void	sanitize_line(char *line);
+int		find_map_start(char **lines);
+int		count_range(char **lines, int start, int delimiter);
+int		alloc_split(char ***header, char ***map, int header_count, int map_count);
+void	copy_range(char **dest, char **src, int start, int delimiter);
+
 /* utils -> maps */
-int		first_non_space(char *row);
-int		valid_neighbor(char c);
-int		get_row_len(t_game *game, int y);
-int		check_border_row(char *row);
 int		count_rows(t_game *game);
 int		is_walkable(char c);
 int		tile_is_space(t_game *game, int y, int x);

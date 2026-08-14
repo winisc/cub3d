@@ -6,25 +6,11 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:46:16 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 14:39:12 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:51:02 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-static void	sanitize_line(char *line)
-{
-	int	len;
-
-	if (!line)
-		return ;
-	len = ft_strlen(line);
-	while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
-	{
-		line[len - 1] = '\0';
-		len--;
-	}
-}
 
 char	**read_file(int fd)
 {
@@ -55,62 +41,6 @@ char	**read_file(int fd)
 	}
 	lines[count] = NULL;
 	return (lines);
-}
-
-int	find_map_start(char **lines)
-{
-	int	i;
-
-	i = 0;
-	while (lines[i])
-	{
-		if (lines[i][0] != '\0' && !is_header_line(lines[i]))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int	count_range(char **lines, int start, int delimiter)
-{
-	int	count;
-
-	count = 0;
-	while (lines[start] && start < delimiter)
-	{
-		start++;
-		count++;
-	}
-	return (count);
-}
-
-static int	alloc_split(char ***header, char ***map, int header_count, int map_count)
-{
-	*header = malloc(sizeof(char *) * (header_count + 1));
-	*map = malloc(sizeof(char *) * (map_count + 1));
-	if (!*header || !*map)
-	{
-		free(*header);
-		free(*map);
-		*header = NULL;
-		*map = NULL;
-		return (1);
-	}
-	return (0);
-}
-
-static void	copy_range(char **dest, char **src, int start, int delimiter)
-{
-	int	i;
-
-	i = 0;
-	while (start < delimiter)
-	{
-		dest[i] = src[start];
-		start++;
-		i++;
-	}
-	dest[i] = NULL;
 }
 
 int		split_header_and_map(char **lines, char ***header, char ***map)
@@ -165,6 +95,8 @@ int	parse_file(t_game *game, char *map_file)
 	if (parse_map(game))
 		return (error_msg("Error\nInvalid Map\n"));
 	if (find_spawn(game))
+		return (1);
+	if (validate_map_flood(game))
 		return (1);
 	return (0);
 }

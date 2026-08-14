@@ -6,86 +6,124 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 21:02:04 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/13 21:52:24 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include  "cub3D.h"
 
-int	check_width_rule(t_game *game, int y, int x)
+int	map_width(t_game *game)
 {
-	int	len_curr;
-	int	len_top;
-	int	len_bot;
+	int	y;
+	int	width;
+	int	len;
 
-	len_curr = ft_strlen(game->map.map[y]);
-	len_top = get_row_len(game, y - 1);
-	len_bot = get_row_len(game, y + 1);
-	if (len_curr > len_top && x >= len_top && game->map.map[y][x] != '1')
-		return (1);
-	if (len_curr > len_bot && x >= len_bot && game->map.map[y][x] != '1')
-		return (1);
-	return (0);
+	y = 0;
+	width = 0;
+	while (game->map.map[y])
+	{
+		len = ft_strlen(game->map.map[y]);
+		if (len > width)
+			width = len;
+		y++;
+	}
+	return (width);
 }
 
-int	check_space_neighbors(t_game *game, int y, int x)
+static char	get_tile(t_game *game, int y, int x)
 {
-	char	*row;
-	int		len;
-
-	row = game->map.map[y];
-	len = ft_strlen(row);
-	if (x > 0 && !valid_neighbor(row[x - 1]))
-		return (1);
-	if (x + 1 < len && !valid_neighbor(row[x + 1]))
-		return (1);
-	if (x < get_row_len(game, y - 1) && !valid_neighbor(game->map.map[y - 1][x]))
-		return (1);
-	if (x < get_row_len(game, y + 1) && !valid_neighbor(game->map.map[y + 1][x]))
-		return (1);
-	return (0);
+	if (y < 0 || y >= game->map.height)
+		return (' ');
+	if (x < 0 || x >= (int)ft_strlen(game->map.map[y]))
+		return (' ');
+	return (game->map.map[y][x]);
 }
 
-int	check_interior_row(t_game *game, int y)
+static int	is_visited(char **visited, int y, int x)
 {
-	char	*row;
-	int		x;
-
-	row = game->map.map[y];
-	if (is_blank(row[0]))
-		return (1);
-	if (first_non_space(row) != 0 && row[0] != ' ')
-		return (1);
-	x = first_non_space(row);
-	if (row[x] != '1')
-		return (1);
-	x = ft_strlen(row) - 1;
-	while (x >= 0 && row[x] == ' ')
-		x--;
-	if (x < 0 || row[x] != '1')
-		return (1);
-	if (check_walkable_cells(game, y))
-		return (1);
-	return (0);
+	return (visited[y][x] == 'V');
 }
 
-int	validate_map_shape(t_game *game)
+static char	**alloc_visited(t_game *game)
+{
+	char	**visited;
+	int		y;
+
+	visited = ft_calloc(game->map.height + 1, sizeof(char *));
+	if (!visited)
+		return (NULL);
+	y = 0;
+	while (y < game->map.height)
+	{
+		visited[y] = ft_calloc(game->map.width + 1, sizeof(char));
+		if (!visited[y])
+		{
+			while (y > 0)
+				free(visited[--y]);
+			free(visited);
+			return (NULL);
+		}
+		y++;
+	}
+	return (visited);
+}
+
+static void	free_visited(char **visited, int height)
 {
 	int	y;
 
-	game->map.height = count_rows(game);
+	if (!visited)
+		return ;
 	y = 0;
-	while (game->map.map[y])
+	while (y < height)
 	{
-		if (y == 0 || y == game->map.height - 1)
-		{
-			if (check_border_row(game->map.map[y]))
-				return (error_msg("border row\n"));
-		}
-		else if (check_interior_row(game, y))
-			return (error_msg("check interior row\n"));
+		free(visited[y]);
 		y++;
 	}
+	free(visited);
+}
+
+static int	flood_fill(t_game *game, char **visited, int y, int x)
+{
+	char	tile;
+
+	tile = get_tile(game, y, x);
+	if (tile == ' ')
+		return (1);
+	if (tile == '1' || is_visited(visited, y, x))
+		return (0);
+	visited[y][x] = 'V';
+	if (flood_fill(game, visited, y - 1, x))
+		return (1);
+	if (flood_fill(game, visited, y + 1, x))
+		return (1);
+	if (flood_fill(game, visited, y, x - 1))
+		return (1);
+	if (flood_fill(game, visited, y, x + 1))
+		return (1);
+	return (0);
+}
+
+int	validate_map_flood(t_game *game)
+{
+	char	**visited;
+	int		start_x;
+	int		start_y;
+	int		leak;
+
+	if (game->player.spawn_set == 0)
+		return (error_msg("Error\nNo spawn point\n"));
+	game->map.height = map_height(game);
+	game->map.width = map_width(game);
+	start_x = (int)(game->player.pos.x / BLOCK);
+	start_y = (int)(game->player.pos.y / BLOCK);
+	visited = alloc_visited(game);
+	if (!visited)
+		return (error_msg("Error\nMalloc failed\n"));
+	leak = flood_fill(game, visited, start_y, start_x);
+	free_visited(visited, game->map.height);
+	if (leak)
+		return (error_msg("Error\nMap is not enclosed\n"));
 	return (0);
 }
 
@@ -99,7 +137,6 @@ int	parse_map(t_game *game)
 	}
 	if (check_map_chars(game))
 		return (error_msg("map chars\n"));
-	if (validate_map_shape(game))
-		return (error_msg("map shape\n"));
+
 	return (0);
 }
