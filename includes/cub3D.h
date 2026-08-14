@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/13 23:08:57 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 14:14:42 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct s_game
 	t_tex		tex;
 	t_texpath	texpath;
 	t_colors	colors;
-
+	
 	t_map		map;
 	
 	void		*mlx;
@@ -175,19 +175,40 @@ void	init_map(t_map *map);
 char	**read_file(int fd);
 int		parse_file(t_game *game, char *map_file);
 int		split_header_and_map(char **lines, char ***header, char ***map);
+void	strip_newline(char *line);
+int		find_map_start(char **lines);
+int		count_range(char **lines, int start, int delimiter);
+int		alloc_split(char ***header, char ***map, int header_count, int map_count);
+void	copy_range(char **dest, char **src, int start, int delimiter);
 
 /* parse -> header*/
 char	**parse_header(char **line, t_texpath *texpath, t_colors *colors);
+int		is_header_line(const char *line);
+int		is_blank(const char *line);
 
 /* parse -> player*/
+int		is_player(char direction);
 int		set_player_pos(t_player *player, char direction, int x, int y);
 void	set_player_dir(t_player *player, char direction);
+int		collide_checker(double x, double y, t_game *game);
 
 /* parse -> map*/
+int		is_valid_char(char tile);
 int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
 int		parse_map(t_game *game);
 int		validate_map_flood(t_game *game);
+int		count_rows(t_game *game);
+int		is_walkable(char c);
+int		tile_is_space(t_game *game, int y, int x);
+int		check_cell_leak(t_game *game, int y, int x);
+int		check_walkable_cells(t_game *game, int y);
+int		map_height(t_game *game);
+int		map_width(t_game *game);
+int		check_map_chars(t_game *game);
+int		check_map_end(char **lines, int map_start);
+int		is_map_line(char *line);
+int		is_line_empty(char *line);
 
 /* render */
 void	draw_map(t_game *game);
@@ -209,30 +230,6 @@ float	distance(float x, float y);
 float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
 double	get_time_seconds(void);
 double	compute_delta_time(t_game *game);
-int		is_valid_char(char tile);
 void	free_lines(char **lines, int count);
-int		check_map_chars(t_game *game);
-int		is_player(char direction);
-int		collide_checker(double x, double y, t_game *game);
-
-/* utils -> file */
-void	sanitize_line(char *line);
-int		find_map_start(char **lines);
-int		count_range(char **lines, int start, int delimiter);
-int		alloc_split(char ***header, char ***map, int header_count, int map_count);
-void	copy_range(char **dest, char **src, int start, int delimiter);
-
-/* utils -> maps */
-int		count_rows(t_game *game);
-int		is_walkable(char c);
-int		tile_is_space(t_game *game, int y, int x);
-int		check_cell_leak(t_game *game, int y, int x);
-int		check_walkable_cells(t_game *game, int y);
-int		map_height(t_game *game);
-int		map_width(t_game *game);
-
-/* utils -> header */
-int		is_header_line(const char *line);
-int		is_blank(const char *line);
 
 #endif

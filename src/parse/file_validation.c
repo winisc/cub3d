@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/11 17:46:16 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 21:51:02 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 14:34:32 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**read_file(int fd)
 				return (free_lines(lines, count), NULL);
 			lines = tmp;
 		}
-		sanitize_line(line);
+		strip_newline(line);
 		lines[count] = line;
 		count++;
 	}
@@ -54,6 +54,8 @@ int		split_header_and_map(char **lines, char ***header, char ***map)
 	map_start = find_map_start(lines);
 	if (map_start < 0)
 		return (error_msg("Error\nCouldn't find map\n"));
+	if (check_map_end(lines, map_start))
+		return (1);
 	while (lines[total])
 		total++;
 	header_count = count_range(lines, 0, map_start);
@@ -78,25 +80,13 @@ int	parse_file(t_game *game, char *map_file)
 	lines = read_file(fd);
 	close(fd);
 	if (!lines)
-		return (error_msg("Error 1\n"));
+		return (error_msg("Error\nUnable to read file\n"));
 	if (split_header_and_map(lines, &header, &map))
 	{
 		free(lines);
-		return (error_msg("Error\nFile can't be read\n"), 1);
+		return (1);
 	}
 	free(lines);
-	//if (parse_header(header, &game->texpath, &game->colors))
-	//{
-	//	free_header(header);
-	//	free_map(map);
-	//	return (1);
-	//}
-	game->map.map = map;
-	if (parse_map(game))
-		return (error_msg("Error\nInvalid Map\n"));
-	if (find_spawn(game))
-		return (1);
-	if (validate_map_flood(game))
-		return (1);
+
 	return (0);
 }

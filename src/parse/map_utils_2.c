@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_2.c                                            :+:      :+:    :+:   */
+/*   map_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/06 18:59:12 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 21:35:29 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 14:23:14 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 int	is_walkable(char c)
 {
@@ -22,7 +21,7 @@ int	tile_is_space(t_game *game, int y, int x)
 {
 	if (y < 0 || y >= game->map.height)
 		return (1);
-	if (x < 0 || (int)ft_strlen(game->map.map[y]))
+	if (x < 0 || x >= (int)ft_strlen(game->map.map[y]))
 		return (1);
 	return (game->map.map[y][x] == ' ');
 }

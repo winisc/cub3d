@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/10 20:36:19 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/13 23:11:07 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 14:30:58 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,19 +132,5 @@ int	validate_map_flood(t_game *game)
 	free_visited(visited, game->map.height);
 	if (leak)
 		return (error_msg("Error\nMap is not enclosed\n"));
-	return (0);
-}
-
-int	parse_map(t_game *game)
-{
-	int i = 0;
-	while (game->map.map[i])
-	{
-		printf("MAP[%d] = %s\n", i, game->map.map[i]);
-		i++;
-	}
-	if (check_map_chars(game))
-		return (error_msg("map chars\n"));
-
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 16:53:36 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/14 00:40:08 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 12:27:35 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int	find_spawn(t_game *game)
 {
 	int	x;
 	int	y;
-	// int	spawn_set;
 
-	// spawn_set = 0;
 	y = 0;
 	while (game->map.map[y])
 	{
