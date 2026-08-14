@@ -14,7 +14,8 @@
 
 int	is_player(char direction)
 {
-	return (direction == 'N' || direction == 'E' || direction == 'W' || direction == 'S');
+	return (direction == 'N' || direction == 'E'
+		|| direction == 'W' || direction == 'S');
 }
 
 int	collide_checker(double x, double y, t_game *game)

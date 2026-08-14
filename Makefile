@@ -33,6 +33,8 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/inits/player.c \
 		$(SRC_DIR)/parse/file_validation.c \
 		$(SRC_DIR)/parse/header.c \
+		$(SRC_DIR)/parse/header_utils_2.c \
+		$(SRC_DIR)/parse/map_utils_3.c \
 		$(SRC_DIR)/parse/map.c \
 		$(SRC_DIR)/parse/player.c \
 		$(SRC_DIR)/parse/file_utils.c \

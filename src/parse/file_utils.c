@@ -26,7 +26,6 @@ void	strip_newline(char *line)
 	}
 }
 
-
 int	find_map_start(char **lines)
 {
 	int	i;
