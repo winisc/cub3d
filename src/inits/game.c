@@ -22,6 +22,7 @@ void	init_game_data(t_game *game)
 	init_img(&game->img);
 	game->mlx = NULL;
 	game->win = NULL;
+	game->last_frame_time = get_time_seconds();
 }
 
 int	init_mlx(t_game *game)
