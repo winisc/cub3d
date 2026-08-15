@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/15 18:59:02 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 18:56:23 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 # include <math.h>
 
 # define GAME_NAME "CUBO3D"
+
+# define MINI_TILE 8
+# define MINI_RADIUS 10
+# define MINI_MARGIN 12
+# define MINI_BORDER 3
+# define MINI_BG 0x000000
+# define MINI_WALL 0xC8C8C8
+# define MINI_FLOOR 0x303030
+# define MINI_VOID 0x101010
+# define MINI_PLAYER 0xFF3030
+# define MINI_DIR 0xFFD000
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -255,6 +266,12 @@ int		is_map_line(char *line);
 int		is_line_empty(char *line);
 
 /* render */
+void	draw_minimap(t_game *game);
+int		mini_size(void);
+int		mini_left(void);
+int		mini_tile_color(t_game *game, int cy, int cx);
+void	fill_tile(t_game *game, int sx, int sy, int color);
+t_pos	tile_screen(t_game *game, int c, int r);
 void	put_pixel(int x, int y, int color, t_game *game);
 void	draw_wall(t_game *game, int column, t_img *tex, t_ray ray);
 void	draw_background(t_game *game);
