@@ -84,12 +84,8 @@ int	parse_header(char **lines, t_texpath *texpath, t_colors *colors)
 	i = 0;
 	while (lines[i])
 	{
-		if (lines[i][0] != '\0')
-		{
-			printf("Parsing header line: [%s]\n", lines[i]);
-			if (parse_header_line(lines[i], texpath, colors))
-				return (1);
-		}
+		if (lines[i][0] != '\0' && parse_header_line(lines[i], texpath, colors))
+			return (1);
 		i++;
 	}
 	if (check_required_header(texpath, colors))
