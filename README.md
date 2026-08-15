@@ -1,4 +1,4 @@
-*This project was created as part of the 42 cursus by wini, mtakiyos.*
+*This project was created as part of the 42 cursus by wsilveir, mtakiyos.*
 
 # cub3D
 
