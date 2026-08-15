@@ -75,9 +75,8 @@ int	split_header_and_map(char **lines, char ***header, char ***map)
 	return (0);
 }
 
-static int	validate_parsed(t_game *game, char **map)
+static int	validate_parsed(t_game *game)
 {
-	game->map.map = map;
 	if (check_map_chars(game))
 		return (1);
 	if (find_spawn(game))
@@ -102,12 +101,11 @@ int	parse_file(t_game *game, char *map_file)
 	if (!lines)
 		return (error_msg("Error\nUnable to read file\n"));
 	if (split_header_and_map(lines, &header, &map))
-		return (free(lines), 1);
+		return (free_str_array(lines), 1);
 	free(lines);
+	game->map.map = map;
 	if (parse_header(header, &game->texpath, &game->colors))
-	{
-		//free_header_lines();
-		return (1);
-	}
-	return (validate_parsed(game, map));
+		return (free_str_array(header), 1);
+	free_str_array(header);
+	return (validate_parsed(game));
 }

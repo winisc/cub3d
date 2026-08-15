@@ -26,6 +26,33 @@ void	destroy_textures(t_game *game)
 		mlx_destroy_image(game->mlx, game->tex.ea.img_ptr);
 }
 
+void	free_str_array(char **arr)
+{
+	int	i;
+
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+static void	free_texpath(t_texpath *tex)
+{
+	free(tex->no);
+	free(tex->so);
+	free(tex->we);
+	free(tex->ea);
+	tex->no = NULL;
+	tex->so = NULL;
+	tex->we = NULL;
+	tex->ea = NULL;
+}
+
 void	cleanup_game(t_game *game)
 {
 	if (!game)
@@ -40,9 +67,7 @@ void	cleanup_game(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	if (game->map.map)
-	{
-		free(game->map.map);
-		game->map.map = NULL;
-	}
+	free_str_array(game->map.map);
+	game->map.map = NULL;
+	free_texpath(&game->texpath);
 }
