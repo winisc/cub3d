@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wsilveir <wsilveir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2026/08/15 18:40:31 by wsilveir         ###   ########.fr       */
-=======
-/*   Updated: 2026/08/15 18:35:28 by mtakiyos         ###   ########.fr       */
->>>>>>> bonus
+/*   Updated: 2026/08/15 19:00:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3D_bonus.h"
 
 void	cast_rays(t_player *player, t_game *game)
 {
@@ -30,7 +26,7 @@ void	cast_rays(t_player *player, t_game *game)
 	i = 0;
 	while (i < WIDTH)
 	{
-		ray = cast_ray(game, center, ray_angle, player->angle);
+		ray = cast_ray(game, center, ray_angle);
 		tex = pick_texture(game, &ray, cos(ray_angle), sin(ray_angle));
 		draw_wall(game, i, tex, ray);
 		ray_angle += (PI / 3) / WIDTH;
@@ -47,6 +43,7 @@ int	draw_loop(void *param)
 	clear_image(game);
 	draw_background(game);
 	cast_rays(&game->player, game);
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 	return (0);
 }
