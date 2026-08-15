@@ -107,4 +107,10 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean clean-game fclean re mlx libft game
+MAP ?= maps/valid/simple.cub
+
+leaks: all
+	valgrind --leak-check=full --show-leak-kinds=all \
+		--suppressions=cub3d.supp ./$(NAME) $(MAP)
+
+.PHONY: all bonus clean clean-game fclean re mlx libft game leaks

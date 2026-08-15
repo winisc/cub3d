@@ -1,0 +1,21 @@
+# Valgrind suppressions for MiniLibX / X11 internals (WSLg).
+# Library-internal 'uninitialised value' noise only; NOT leaks and
+# NOT our code. Use: make leaks   (or valgrind --suppressions=cub3d.supp ...)
+
+{
+   mlx_x11_1
+   Memcheck:Param
+   writev(vector[0])
+   fun:writev
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+   fun:xcb_writev
+   fun:_XSend
+   fun:_XReadEvents
+   fun:XWindowEvent
+   fun:mlx_int_wait_first_expose
+   fun:mlx_new_window
+   fun:init_mlx
+   fun:start_game
+   fun:main
+}
