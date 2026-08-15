@@ -1,0 +1,192 @@
+# Valgrind suppressions for MiniLibX / X11 internals (WSLg).
+# These silence library-internal 'uninitialised value' noise; they
+# do NOT suppress leaks. Use: valgrind --suppressions=cub3d.supp ./cub3D map.cub
+
+{
+   mlx_x11_1
+   Memcheck:Param
+   writev(vector[0])
+   fun:writev
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+   fun:xcb_writev
+   fun:_XSend
+   fun:_XReadEvents
+   fun:XWindowEvent
+   fun:mlx_int_wait_first_expose
+   fun:mlx_new_window
+   fun:init_mlx
+   fun:start_game
+   fun:main
+}
+{
+   mlx_x11_2
+   Memcheck:Cond
+   fun:touch
+   fun:collide_checker
+   fun:is_colliding
+   fun:normalize_speed
+   fun:move_player
+   fun:player_controller
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_3
+   Memcheck:Value8
+   fun:touch
+   fun:collide_checker
+   fun:is_colliding
+   fun:normalize_speed
+   fun:move_player
+   fun:player_controller
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_4
+   Memcheck:Cond
+   fun:run_dda
+   fun:cast_ray
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_5
+   Memcheck:Cond
+   fun:touch
+   fun:run_dda
+   fun:cast_ray
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_6
+   Memcheck:Value8
+   fun:touch
+   fun:run_dda
+   fun:cast_ray
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_7
+   Memcheck:Cond
+   fun:wall_height
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_8
+   Memcheck:Cond
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_9
+   Memcheck:Cond
+   fun:tex_pixel
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_10
+   Memcheck:Value8
+   fun:tex_pixel
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_11
+   Memcheck:Cond
+   fun:put_pixel
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_12
+   Memcheck:Value8
+   fun:put_pixel
+   fun:draw_wall
+   fun:cast_rays
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_13
+   Memcheck:Cond
+   fun:get_tile
+   fun:mini_tile_color
+   fun:mini_tiles
+   fun:draw_minimap
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_14
+   Memcheck:Cond
+   fun:fill_tile
+   fun:mini_tiles
+   fun:draw_minimap
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_15
+   Memcheck:Cond
+   fun:put_pixel
+   fun:fill_tile
+   fun:mini_tiles
+   fun:draw_minimap
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_16
+   Memcheck:Value8
+   fun:put_pixel
+   fun:fill_tile
+   fun:mini_tiles
+   fun:draw_minimap
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
+{
+   mlx_x11_17
+   Memcheck:Value8
+   fun:get_tile
+   fun:mini_tile_color
+   fun:mini_tiles
+   fun:draw_minimap
+   fun:draw_loop
+   fun:mlx_loop
+   fun:main
+}
