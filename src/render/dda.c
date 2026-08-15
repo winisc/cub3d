@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wsilveir <wsilveir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 20:00:00 by wini              #+#    #+#             */
-/*   Updated: 2026/08/14 20:00:00 by wini             ###   ########.fr       */
+/*   Updated: 2026/08/15 18:38:14 by wsilveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ static void	run_dda(t_dda *d, t_game *game)
 	}
 }
 
-t_ray	cast_ray(t_game *game, t_pos start, float ray_angle)
+float	correct_fisheye(float dist, float ray_angle,
+	float player_angle)
+{
+	return (dist * cosf(ray_angle - player_angle));
+}
+
+t_ray	cast_ray(t_game *game, t_pos start, float ray_angle, float player_angle)
 {
 	t_dda	d;
 	t_ray	ray;
@@ -89,7 +95,7 @@ t_ray	cast_ray(t_game *game, t_pos start, float ray_angle)
 		wall = d.pos.x + perp * d.dir.x;
 	ray.side = d.side;
 	ray.wall_x = (wall - floorf(wall)) * BLOCK;
-	ray.dist = perp * BLOCK;
+	ray.dist = correct_fisheye(perp * BLOCK, ray_angle, player_angle);
 	ray.hit.x = start.x + d.dir.x * perp * BLOCK;
 	ray.hit.y = start.y + d.dir.y * perp * BLOCK;
 	return (ray);
