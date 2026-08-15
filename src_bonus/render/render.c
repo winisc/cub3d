@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 11:25:00 by wini              #+#    #+#             */
-/*   Updated: 2026/08/15 19:00:13 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 19:08:34 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cast_rays(t_player *player, t_game *game)
 	i = 0;
 	while (i < WIDTH)
 	{
-		ray = cast_ray(game, center, ray_angle);
+		ray = cast_ray(game, center, ray_angle, player->angle);
 		tex = pick_texture(game, &ray, cos(ray_angle), sin(ray_angle));
 		draw_wall(game, i, tex, ray);
 		ray_angle += (PI / 3) / WIDTH;

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/15 19:06:15 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 19:07:50 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ void	draw_background(t_game *game);
 void	clear_image(t_game *game);
 int		touch(float px, float py, t_game *game);
 t_ray	cast_ray(t_game *game, t_pos start, float ray_angle,
-			float player_angle);
+			float plmayer_angle);
 float	wall_height(float dist);
 void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
