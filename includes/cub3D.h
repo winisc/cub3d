@@ -294,5 +294,6 @@ float	fixed_dist(t_pos pos1, t_pos pos2, t_game *game);
 double	get_time_seconds(void);
 double	compute_delta_time(t_game *game);
 void	free_lines(char **lines, int count);
+void	free_str_array(char **arr);
 
 #endif
