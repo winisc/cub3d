@@ -105,9 +105,6 @@ int	parse_file(t_game *game, char *map_file)
 		return (free(lines), 1);
 	free(lines);
 	if (parse_header(header, &game->texpath, &game->colors))
-	{
-		//free_header_lines();
 		return (1);
-	}
 	return (validate_parsed(game, map));
 }

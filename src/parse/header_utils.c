@@ -32,7 +32,8 @@ int	is_color(char *line, char id)
 {
 	while (*line == ' ' || *line == '\t')
 		line++;
-	return (line[0] == id && (line[1] == ' ' || line[1] == '\t' || line[1] == '\0'));
+	return (line[0] == id
+		&& (line[1] == ' ' || line[1] == '\t' || line[1] == '\0'));
 }
 
 int	is_blank(const char *line)

@@ -39,10 +39,11 @@ int	find_map_start(char **lines)
 		j = 0;
 		while (lines[i][j])
 		{
-			if (lines[i][0] != '\0' && lines[i][j] != '\t' && lines[i][j] != '\n')
+			if (lines[i][0] != '\0' && lines[i][j] != '\t'
+				&& lines[i][j] != '\n')
 			{
 				is_empty = 0;
-				break;
+				break ;
 			}
 			j++;
 		}
