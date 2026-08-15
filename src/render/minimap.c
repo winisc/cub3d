@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wsilveir <wsilveir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 00:00:00 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/15 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 18:12:57 by wsilveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/* Solid framed background: the box plus a MINI_BORDER-wide border. */
 static void	mini_bg(t_game *game)
 {
 	int	x;
@@ -35,8 +34,6 @@ static void	mini_bg(t_game *game)
 	}
 }
 
-/* Draws the map cells in the window around the player. The loop range
-   is MINI_RADIUS plus one extra ring so partial edge tiles show up. */
 static void	mini_tiles(t_game *game)
 {
 	int		i;
@@ -62,7 +59,6 @@ static void	mini_tiles(t_game *game)
 	}
 }
 
-/* Player marker (a tile at the box center) plus a facing direction line. */
 static void	mini_player(t_game *game)
 {
 	int		cx;

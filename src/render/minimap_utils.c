@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wsilveir <wsilveir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/15 00:00:00 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/15 00:00:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 18:14:02 by wsilveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-/*
-** Minimap geometry, all derived from MINI_RADIUS and MINI_TILE:
-**   cells across = 2 * MINI_RADIUS + 1  (odd, player sits in the middle)
-**   mini_size()  = that many cells in pixels  (the box is a square)
-**   mini_left()  = the box left edge, anchored to the top-right corner
-*/
 int	mini_size(void)
 {
 	return ((2 * MINI_RADIUS + 1) * MINI_TILE);
@@ -40,7 +34,6 @@ int	mini_tile_color(t_game *game, int cy, int cx)
 	return (MINI_FLOOR);
 }
 
-/* Fills one MINI_TILE square at (sx, sy), clipped to the minimap box. */
 void	fill_tile(t_game *game, int sx, int sy, int color)
 {
 	int	x;
@@ -65,8 +58,6 @@ void	fill_tile(t_game *game, int sx, int sy, int color)
 	}
 }
 
-/* Screen position of map cell (c, r): the grid scrolls under the player,
-   who stays at the box center, offset by their sub-cell fraction. */
 t_pos	tile_screen(t_game *game, int c, int r)
 {
 	t_pos	s;

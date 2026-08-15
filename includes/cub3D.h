@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: wsilveir <wsilveir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/15 03:04:40 by wini             ###   ########.fr       */
+/*   Updated: 2026/08/15 18:15:09 by wsilveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # define GAME_NAME "CUBO3D"
 
-/* minimap: shows MINI_RADIUS cells around the player, MINI_TILE px each */
 # define MINI_TILE 8
 # define MINI_RADIUS 10
 # define MINI_MARGIN 12
@@ -75,8 +74,8 @@ typedef enum s_bool
 
 typedef struct s_pos
 {
-	float	x;					/* movement speed (horizontal) */
-	float	y;					/* movement speed (vertical) */
+	float	x;
+	float	y;
 }	t_pos;
 
 typedef struct s_move
@@ -94,13 +93,13 @@ typedef struct s_player
 	t_move		move;
 	t_pos		pos;
 	t_bool		spawn_set;
-	float		angle;				/* dir_x or dir_y */
-	int			key_up;				/* W -> move up */
-	int			key_down;			/* S -> move down */
-	int			key_strafe_left;	/* A -> move left */
-	int			key_strafe_right;	/* D -> move right */
-	int			key_left_rotate;	/* left arrow key */
-	int			key_right_rotate;	/* right arrow key */
+	float		angle;
+	int			key_up;
+	int			key_down;
+	int			key_strafe_left;
+	int			key_strafe_right;
+	int			key_left_rotate;
+	int			key_right_rotate;
 }	t_player;
 
 typedef struct s_img
