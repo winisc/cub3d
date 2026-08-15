@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wini <wini@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/14 23:34:33 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/15 03:04:40 by wini             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 # define GAME_NAME "CUBO3D"
 
+/* minimap: shows MINI_RADIUS cells around the player, MINI_TILE px each */
 # define MINI_TILE 8
 # define MINI_RADIUS 10
-# define MINI_SPAN 21
 # define MINI_MARGIN 12
 # define MINI_BORDER 3
 # define MINI_BG 0x000000
@@ -260,6 +260,8 @@ int		is_line_empty(char *line);
 
 /* render */
 void	draw_minimap(t_game *game);
+int		mini_size(void);
+int		mini_left(void);
 int		mini_tile_color(t_game *game, int cy, int cx);
 void	fill_tile(t_game *game, int sx, int sy, int color);
 t_pos	tile_screen(t_game *game, int c, int r);

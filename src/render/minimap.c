@@ -12,24 +12,31 @@
 
 #include "cub3D.h"
 
+/* Solid framed background: the box plus a MINI_BORDER-wide border. */
 static void	mini_bg(t_game *game)
 {
 	int	x;
 	int	y;
-	int	bx;
-	int	by;
+	int	left;
+	int	span;
 
-	bx = WIDTH - MINI_SPAN * MINI_TILE - MINI_MARGIN - MINI_BORDER;
-	by = MINI_MARGIN - MINI_BORDER;
-	y = -1;
-	while (++y < MINI_SPAN * MINI_TILE + 2 * MINI_BORDER)
+	left = mini_left() - MINI_BORDER;
+	span = mini_size() + 2 * MINI_BORDER;
+	y = 0;
+	while (y < span)
 	{
-		x = -1;
-		while (++x < MINI_SPAN * MINI_TILE + 2 * MINI_BORDER)
-			put_pixel(bx + x, by + y, MINI_BG, game);
+		x = 0;
+		while (x < span)
+		{
+			put_pixel(left + x, MINI_MARGIN - MINI_BORDER + y, MINI_BG, game);
+			x++;
+		}
+		y++;
 	}
 }
 
+/* Draws the map cells in the window around the player. The loop range
+   is MINI_RADIUS plus one extra ring so partial edge tiles show up. */
 static void	mini_tiles(t_game *game)
 {
 	int		i;
@@ -40,35 +47,41 @@ static void	mini_tiles(t_game *game)
 
 	cx = (int)(game->player.pos.x / BLOCK);
 	cy = (int)(game->player.pos.y / BLOCK);
-	j = -MINI_RADIUS - 2;
-	while (++j <= MINI_RADIUS + 1)
+	j = -MINI_RADIUS - 1;
+	while (j <= MINI_RADIUS + 1)
 	{
-		i = -MINI_RADIUS - 2;
-		while (++i <= MINI_RADIUS + 1)
+		i = -MINI_RADIUS - 1;
+		while (i <= MINI_RADIUS + 1)
 		{
 			s = tile_screen(game, cx + i, cy + j);
 			fill_tile(game, (int)s.x, (int)s.y,
 				mini_tile_color(game, cy + j, cx + i));
+			i++;
 		}
+		j++;
 	}
 }
 
+/* Player marker (a tile at the box center) plus a facing direction line. */
 static void	mini_player(t_game *game)
 {
 	int		cx;
 	int		cy;
 	int		k;
-	float	c;
-	float	s;
+	float	dx;
+	float	dy;
 
-	cx = WIDTH - MINI_MARGIN - MINI_SPAN * MINI_TILE / 2;
-	cy = MINI_MARGIN + MINI_SPAN * MINI_TILE / 2;
+	cx = mini_left() + mini_size() / 2;
+	cy = MINI_MARGIN + mini_size() / 2;
 	fill_tile(game, cx - MINI_TILE / 2, cy - MINI_TILE / 2, MINI_PLAYER);
-	c = cos(game->player.angle);
-	s = sin(game->player.angle);
-	k = -1;
-	while (++k < MINI_TILE * 3)
-		put_pixel(cx + (int)(c * k), cy + (int)(s * k), MINI_DIR, game);
+	dx = cos(game->player.angle);
+	dy = sin(game->player.angle);
+	k = 0;
+	while (k < MINI_TILE * 3)
+	{
+		put_pixel(cx + (int)(dx * k), cy + (int)(dy * k), MINI_DIR, game);
+		k++;
+	}
 }
 
 void	draw_minimap(t_game *game)
