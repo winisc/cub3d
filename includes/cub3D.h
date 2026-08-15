@@ -168,6 +168,13 @@ typedef struct s_dda
 	int			side;
 }	t_dda;
 
+typedef struct s_stack
+{
+	int	*data;
+	int	size;
+	int	cap;
+}	t_stack;
+
 typedef struct s_game
 {
 	t_img		img;
@@ -242,6 +249,7 @@ int		pad_map(t_game *game);
 int		find_spawn(t_game *game);
 int		parse_map(t_game *game);
 int		validate_map_flood(t_game *game);
+int		flood_fill(t_game *game, char **visited, int y0, int x0);
 char	get_tile(t_game *game, int y, int x);
 int		is_visited(char **visited, int y, int x);
 char	**alloc_visited(t_game *game);
