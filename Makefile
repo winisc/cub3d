@@ -6,7 +6,7 @@
 #    By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/07 19:14:29 by wini              #+#    #+#              #
-#    Updated: 2026/08/14 12:07:32 by mtakiyos         ###   ########.fr        #
+#    Updated: 2026/08/14 21:57:36 by mtakiyos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ DEBUG ?= 0
 ifeq ($(DEBUG), 1)
 	CFLAGS += -g2 -O0 -fsanitize=leak
 endif
+
+
 
 all: mlx libft $(NAME)
 

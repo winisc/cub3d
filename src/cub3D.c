@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:44:14 by wini              #+#    #+#             */
-/*   Updated: 2026/08/14 18:08:44 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 23:33:11 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	error_msg(char *msg)
 {
+	ft_putstr_fd(RED, 2);
 	ft_putstr_fd(msg, 2);
+	ft_putstr_fd(RESET, 2);
 	return (1);
 }
 
