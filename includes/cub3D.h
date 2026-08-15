@@ -21,8 +21,17 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define DEBUG 1
 # define GAME_NAME "CUBO3D"
+
+# define MINI_TILE 8
+# define MINI_RADIUS 10
+# define MINI_SPAN 21
+# define MINI_MARGIN 12
+# define MINI_WALL 0xC8C8C8
+# define MINI_FLOOR 0x303030
+# define MINI_VOID 0x101010
+# define MINI_PLAYER 0xFF3030
+# define MINI_DIR 0xFFD000
 
 # define WIDTH 1280
 # define HEIGHT 720
@@ -90,7 +99,6 @@ typedef struct s_player
 	int			key_strafe_right;	/* D -> move right */
 	int			key_left_rotate;	/* left arrow key */
 	int			key_right_rotate;	/* right arrow key */
-	int			debug;				/* minimap view */
 }	t_player;
 
 typedef struct s_img
@@ -249,17 +257,14 @@ int		is_map_line(char *line);
 int		is_line_empty(char *line);
 
 /* render */
-void	draw_map(t_game *game);
+void	draw_minimap(t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
-void	draw_square(t_pos pos, int size, int color, t_game *game);
 void	draw_wall(t_game *game, int column, t_img *tex, t_ray ray);
 void	draw_background(t_game *game);
 void	clear_image(t_game *game);
 int		touch(float px, float py, t_game *game);
 t_ray	cast_ray(t_game *game, t_pos start, float ray_angle);
 float	wall_height(float dist);
-void	draw_ray(t_game *game, t_pos start, t_pos hit);
-void	render_minimap_view(t_game *game, t_player *player);
 void	cast_rays(t_player *player, t_game *game);
 int		draw_loop(void *param);
 int		load_textures(t_game *game);

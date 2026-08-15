@@ -40,8 +40,6 @@ int	key_press(int keycode, void *param)
 		game->player.key_right_rotate = 1;
 	if (keycode == KEY_ESCAPE)
 		close_game(game);
-	if (keycode == C)
-		game->player.debug = !game->player.debug;
 	return (0);
 }
 

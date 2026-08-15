@@ -38,25 +38,3 @@ float	wall_height(float dist)
 		return (HEIGHT);
 	return ((BLOCK / dist) * (WIDTH / 2));
 }
-
-void	draw_ray(t_game *game, t_pos start, t_pos hit)
-{
-	float	dx;
-	float	dy;
-	float	steps;
-	int		i;
-
-	dx = hit.x - start.x;
-	dy = hit.y - start.y;
-	steps = fmaxf(fabsf(dx), fabsf(dy));
-	if (steps < 1)
-		return ;
-	dx /= steps;
-	dy /= steps;
-	i = 0;
-	while (i < (int)steps)
-	{
-		put_pixel(start.x + dx * i, start.y + dy * i, 0xFF0000, game);
-		i++;
-	}
-}
