@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 18:17:39 by wini              #+#    #+#             */
-/*   Updated: 2026/08/14 18:05:29 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 23:34:33 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 # define KEY_ESCAPE 65307
 
 # define PI 3.14159265350
+
+# define RED	"\033[0;31m"
+# define RESET	"\033[0m"
 
 # define SPEED 200
 # define ANGLE_SPEED 2.5

@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/13 21:42:10 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/14 13:10:10 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 22:54:27 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,24 @@ void	strip_newline(char *line)
 int	find_map_start(char **lines)
 {
 	int	i;
+	int	j;
+	int	is_empty;
 
 	i = 0;
 	while (lines[i])
 	{
-		if (lines[i][0] != '\0' && !is_header_line(lines[i]))
+		is_empty = 1;
+		j = 0;
+		while (lines[i][j])
+		{
+			if (lines[i][0] != '\0' && lines[i][j] != '\t' && lines[i][j] != '\n')
+			{
+				is_empty = 0;
+				break;
+			}
+			j++;
+		}
+		if (!is_empty && !is_header_line(lines[i]))
 			return (i);
 		i++;
 	}

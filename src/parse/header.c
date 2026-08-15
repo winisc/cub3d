@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/12 19:23:36 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/14 18:15:40 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 23:22:25 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	parse_texture_line(char *line, t_texpath *texpath)
 {
+	while (*line == ' ' || *line == '\t')
+		line++;
 	if (is_texture_id(line, "NO"))
 		return (store_texture(&texpath->no, line, 2));
 	if (is_texture_id(line, "SO"))
@@ -51,12 +53,17 @@ static int	parse_color_line(char *line, t_colors *colors)
 
 static int	parse_header_line(char *line, t_texpath *texpath, t_colors *colors)
 {
-	if (is_texture_id(line, "NO") || is_texture_id(line, "SO")
-		|| is_texture_id(line, "EA") || is_texture_id(line, "WE"))
-		return (parse_texture_line(line, texpath));
-	if (is_color(line, 'F') || is_color(line, 'C'))
-		return (parse_color_line(line, colors));
-	return (error_msg("Error\nUnknown header identifier"));
+	char	*trimmed;
+
+	trimmed = skip_spaces(line);
+	if (is_texture_id(trimmed, "NO") || is_texture_id(trimmed, "SO")
+		|| is_texture_id(trimmed, "EA") || is_texture_id(trimmed, "WE"))
+		return (parse_texture_line(trimmed, texpath));
+	if (is_color(trimmed, 'F') || is_color(trimmed, 'C'))
+		return (parse_color_line(trimmed, colors));
+	if (trimmed[0] == '\0')
+		return (0);
+	return (error_msg("Error\nUnknown header identifier\n"));
 }
 
 int	check_required_header(t_texpath *texpath, t_colors *colors)

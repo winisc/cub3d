@@ -6,7 +6,7 @@
 /*   By: mtakiyos <mtakiyos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/14 20:30:00 by mtakiyos          #+#    #+#             */
-/*   Updated: 2026/08/14 20:30:00 by mtakiyos         ###   ########.fr       */
+/*   Updated: 2026/08/14 23:20:13 by mtakiyos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_texture_id(char *line, char *id)
 {
 	int	len;
 
+	while (*line == ' ' || *line == '\t')
+		line++;
 	len = ft_strlen(id);
 	return (ft_strncmp(line, id, len) == 0
 		&& has_space_after_id(line, len));
@@ -47,6 +49,7 @@ int	parse_rgb(char *line, int *color)
 	int	g;
 	int	b;
 
+	line = skip_spaces(line);
 	if (parse_component(&line, &r))
 		return (1);
 	if (*line != ',')
