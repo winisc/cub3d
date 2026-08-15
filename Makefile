@@ -44,7 +44,8 @@ SRC =	$(SRC_DIR)/cub3D.c \
 		$(SRC_DIR)/parse/player_utils.c \
 		$(SRC_DIR)/render/dda.c \
 		$(SRC_DIR)/render/draw.c \
-		$(SRC_DIR)/render/map.c \
+		$(SRC_DIR)/render/minimap.c \
+		$(SRC_DIR)/render/minimap_utils.c \
 		$(SRC_DIR)/render/raycast.c \
 		$(SRC_DIR)/render/render.c \
 		$(SRC_DIR)/render/textures.c \

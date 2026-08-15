@@ -26,21 +26,6 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->img.data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(t_pos pos, int size, int color, t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		put_pixel(pos.x + i, pos.y, color, game);
-		put_pixel(pos.x, pos.y + i, color, game);
-		put_pixel(pos.x + size, pos.y + i, color, game);
-		put_pixel(pos.x + i, pos.y + size, color, game);
-		i++;
-	}
-}
-
 void	draw_wall(t_game *game, int column, t_img *tex, t_ray ray)
 {
 	int	height;

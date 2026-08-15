@@ -24,7 +24,6 @@ void	init_player(t_player *player)
 	player->key_left_rotate = 0;
 	player->key_right_rotate = 0;
 	player->spawn_set = 0;
-	player->debug = DEBUG;
 }
 
 void	init_player_movement(t_player *player)

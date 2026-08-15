@@ -12,12 +12,6 @@
 
 #include "cub3D.h"
 
-void	render_minimap_view(t_game *game, t_player *player)
-{
-	draw_square(player->pos, PLAYER_SIZE, 0xFFF000, game);
-	draw_map(game);
-}
-
 void	cast_rays(t_player *player, t_game *game)
 {
 	int		i;
@@ -33,13 +27,8 @@ void	cast_rays(t_player *player, t_game *game)
 	while (i < WIDTH)
 	{
 		ray = cast_ray(game, center, ray_angle);
-		if (player->debug)
-			draw_ray(game, center, ray.hit);
-		else
-		{
-			tex = pick_texture(game, &ray, cos(ray_angle), sin(ray_angle));
-			draw_wall(game, i, tex, ray);
-		}
+		tex = pick_texture(game, &ray, cos(ray_angle), sin(ray_angle));
+		draw_wall(game, i, tex, ray);
 		ray_angle += (PI / 3) / WIDTH;
 		i++;
 	}
@@ -47,18 +36,14 @@ void	cast_rays(t_player *player, t_game *game)
 
 int	draw_loop(void *param)
 {
-	t_player	*player;
-	t_game		*game;
+	t_game	*game;
 
 	game = (t_game *)param;
-	player = &game->player;
 	player_controller(game);
 	clear_image(game);
-	if (player->debug)
-		render_minimap_view(game, player);
-	else
-		draw_background(game);
-	cast_rays(player, game);
+	draw_background(game);
+	cast_rays(&game->player, game);
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img_ptr, 0, 0);
 	return (0);
 }
