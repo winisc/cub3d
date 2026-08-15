@@ -21,7 +21,10 @@ static char	**grow_lines(char **lines, int *cap, int count)
 	*cap *= 2;
 	tmp = realloc(lines, sizeof(char *) * *cap);
 	if (!tmp)
-		return (free_lines(lines, count), NULL);
+	{
+		free_lines(lines, count);
+		return (NULL);
+	}
 	return (tmp);
 }
 
@@ -42,7 +45,10 @@ char	**read_file(int fd)
 	{
 		lines = grow_lines(lines, &cap, count);
 		if (!lines)
-			return (free(line), NULL);
+		{
+			free(line);
+			return (NULL);
+		}
 		strip_newline(line);
 		lines[count++] = line;
 		line = get_next_line(fd);
@@ -102,7 +108,10 @@ int	parse_file(t_game *game, char *map_file)
 	if (!lines)
 		return (error_msg("Error\nUnable to read file\n"));
 	if (split_header_and_map(lines, &header, &map))
-		return (free(lines), 1);
+	{
+		free(lines);
+		return (1);
+	}
 	free(lines);
 	if (parse_header(header, &game->texpath, &game->colors))
 		return (1);

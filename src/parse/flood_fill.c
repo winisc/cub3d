@@ -38,31 +38,37 @@ static int	push_neighbors(t_stack *st, int y, int x)
 	return (0);
 }
 
-int	flood_fill(t_game *game, char **visited, int y0, int x0)
+static int	fill_step(t_game *game, char **visited, t_stack *st)
 {
-	t_stack	st;
 	int		y;
 	int		x;
 	char	tile;
 
+	st->size--;
+	y = st->data[st->size * 2];
+	x = st->data[st->size * 2 + 1];
+	tile = get_tile(game, y, x);
+	if (tile == ' ' || tile == '\0')
+		return (1);
+	if (tile == '1' || is_visited(visited, y, x))
+		return (0);
+	visited[y][x] = 'V';
+	return (push_neighbors(st, y, x));
+}
+
+int	flood_fill(t_game *game, char **visited, int y0, int x0)
+{
+	t_stack	st;
+	int		leak;
+
 	st.cap = 1024;
 	st.size = 0;
 	st.data = malloc(sizeof(int) * st.cap * 2);
-	if (!st.data || push(&st, y0, x0))
-		return (free(st.data), 1);
-	while (st.size > 0)
-	{
-		st.size--;
-		y = st.data[st.size * 2];
-		x = st.data[st.size * 2 + 1];
-		tile = get_tile(game, y, x);
-		if (tile == ' ' || tile == '\0')
-			return (free(st.data), 1);
-		if (tile == '1' || is_visited(visited, y, x))
-			continue ;
-		visited[y][x] = 'V';
-		if (push_neighbors(&st, y, x))
-			return (free(st.data), 1);
-	}
-	return (free(st.data), 0);
+	if (!st.data)
+		return (1);
+	leak = push(&st, y0, x0);
+	while (st.size > 0 && !leak)
+		leak = fill_step(game, visited, &st);
+	free(st.data);
+	return (leak);
 }
