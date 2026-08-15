@@ -19,6 +19,9 @@ void	init_game_data(t_game *game)
 	init_texture_path(&game->texpath);
 	init_texture(&game->tex);
 	init_colors(&game->colors);
+	init_img(&game->img);
+	game->mlx = NULL;
+	game->win = NULL;
 }
 
 int	init_mlx(t_game *game)
