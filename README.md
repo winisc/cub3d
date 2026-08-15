@@ -59,9 +59,4 @@ check error handling) live in `maps/invalid/`.
 
 ### Use of AI
 
-We used an AI assistant (Claude Code) as a pair-programming helper on specific
-tasks: refactoring the raycaster to a DDA and adding wall texturing and the
-floor/ceiling rendering; building the scrolling minimap; auditing and closing
-memory leaks with valgrind; and bringing the parsing code up to the Norm. It was
-also used to generate the test map suite in `maps/`. Every change was reviewed,
-tested and committed by us.
+We used AI assistants as a study aid throughout the project, primarily to clarify doubts, explore solutions, design and run tests, and provide guidance during implementation. AI was used solely as a support tool and all development, modifications, reviews, testing, and validation were carried out by us before being committed.
