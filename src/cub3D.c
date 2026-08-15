@@ -42,7 +42,10 @@ int	start_game(t_game *game, char *map_file)
 {
 	init_game_data(game);
 	if (parse_file(game, map_file))
-		return (cleanup_game(game), 1);
+	{
+		cleanup_game(game);
+		return (1);
+	}
 	if (!game->map.map)
 		return (error_msg("Error\nUnable to load map\n"));
 	if (init_mlx(game))
